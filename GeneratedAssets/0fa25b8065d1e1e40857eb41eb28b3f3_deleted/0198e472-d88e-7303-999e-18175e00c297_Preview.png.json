@@ -1,0 +1,11 @@
+{
+    "asset": "0fa25b8065d1e1e40857eb41eb28b3f3",
+    "fileName": "0198e472-d88e-7303-999e-18175e00c297_Preview.png",
+    "prompt": "dirt road 100meter in length and 10 meter in width",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 1350719170,
+    "w3CTraceId": "8e76f6690101f6686fb125e9e5207cdf",
+    "refinementMode": "Generation"
+}

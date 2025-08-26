@@ -1,0 +1,11 @@
+{
+    "asset": "d7fd4d4dc5f8df247950d2a3ca558fa7",
+    "fileName": "0198e4a9-b596-7b0c-ba56-10e7d08b9477_Preview.png",
+    "prompt": "stone flooring\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 290996341,
+    "w3CTraceId": "d8dd76910e4014b9b2e2ab8a967ae3e7",
+    "refinementMode": "Generation"
+}

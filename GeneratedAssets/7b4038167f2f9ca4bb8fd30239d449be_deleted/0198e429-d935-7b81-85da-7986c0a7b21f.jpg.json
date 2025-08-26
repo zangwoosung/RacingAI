@@ -1,0 +1,20 @@
+{
+    "asset": "7b4038167f2f9ca4bb8fd30239d449be",
+    "fileName": "0198e429-d935-7b81-85da-7986c0a7b21f.jpg",
+    "prompt": "sprites for buttons ",
+    "negativePrompt": "",
+    "model": "7f7b9460-c961-4bf8-a854-e164210cd1ff",
+    "modelName": "Game Characters",
+    "customSeed": -1,
+    "w3CTraceId": "c435d23b5d722d9fc124a04624b32c23",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

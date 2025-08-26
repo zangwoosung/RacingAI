@@ -1,0 +1,11 @@
+{
+    "asset": "788679d98a8cc434392d6cfa5792c89c",
+    "fileName": "0198e434-a093-7723-9e79-e86420cee4e2_Preview.png",
+    "prompt": "dirt road 100 meters in length 10 meter in width \n for animal racing",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 103434734,
+    "w3CTraceId": "3f756800bcc3b35a8242d91dc9e27787",
+    "refinementMode": "Generation"
+}

@@ -1,0 +1,11 @@
+{
+    "asset": "d7fd4d4dc5f8df247950d2a3ca558fa7",
+    "fileName": "0198e4a7-f9af-7b47-839d-d0295d19a9d4_Preview.png",
+    "prompt": "dirt trail",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 1327144913,
+    "w3CTraceId": "0ec46372c430d074087483ee18a69fcd",
+    "refinementMode": "Generation"
+}

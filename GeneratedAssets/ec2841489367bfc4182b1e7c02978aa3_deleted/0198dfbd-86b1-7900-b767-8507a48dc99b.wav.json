@@ -1,0 +1,13 @@
+{
+    "asset": "ec2841489367bfc4182b1e7c02978aa3",
+    "fileName": "0198dfbd-86b1-7900-b767-8507a48dc99b.wav",
+    "prompt": "bullet hit tank",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "cec3cdf1877ff7befd38ce5f10dae4d6",
+    "duration": 3.0999999046325685,
+    "autoTrim": true,
+    "hasReference": false
+}

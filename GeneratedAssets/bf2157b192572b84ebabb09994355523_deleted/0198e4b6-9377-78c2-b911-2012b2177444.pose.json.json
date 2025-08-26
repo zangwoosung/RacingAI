@@ -1,0 +1,11 @@
+{
+    "asset": "bf2157b192572b84ebabb09994355523",
+    "fileName": "0198e4b6-9377-78c2-b911-2012b2177444.pose.json",
+    "prompt": "tiger run and roar",
+    "negativePrompt": "",
+    "model": "a9c27ca4-3ec9-43e8-96cd-ee891aba64c5",
+    "modelName": "Text to Motion",
+    "customSeed": 1845897154,
+    "w3CTraceId": "4bbd13d1c667156aae75ecd78a80f921",
+    "isTrimmed": false
+}
