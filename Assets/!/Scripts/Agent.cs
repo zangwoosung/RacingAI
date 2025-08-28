@@ -1,61 +1,64 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 
+public struct Ticket
+{
+    public float ElapsedTime;
+    public string Name;
+    public Ticket(float r, string name)
+    {
+        this.ElapsedTime = r;
+        this.Name = name;
+    }
+}
+
 public class Agent : MonoBehaviour
 {
-    public Vector3 destination = Vector3.zero;
-    NavMeshAgent agent;
-    Vector3 originalPos;
-    Action<string> myAction;
-    Func<int, string> myFunc;
+    Vector3 destination = Vector3.zero;
+    NavMeshAgent navAgent;
+    Vector3 originalPos;   
+    Action<Ticket> RankingAction;
+   
+    float startTime;
+    float elapsedTime;      
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.enabled = true;
         originalPos = transform.position;
     }
 
     public void Setup(float speed, Vector3 des)
     {
-        agent.speed = speed;
+        startTime = Time.time;
+        navAgent.speed = speed;
+        navAgent.SetDestination(des);
         destination = des;
-        agent.SetDestination(des);
     }
 
-    public void CallBackAction(Action<string> action)
+    public void CallBackAction(Action<Ticket> action)
     {
-        myAction = action;
-    }
+        RankingAction = action;
+    }    
 
-    public void CallBackFunc(Func<int, string> func)
-    {
-        myFunc = func;
-    }
-
-    void Restore()
-    {
-        transform.position = originalPos;
+    public void Restore()
+    {        
+        elapsedTime = 0;
     }
 
     void Update()
     {
         if (destination == Vector3.zero) return;
 
-        if (agent.remainingDistance < agent.stoppingDistance)
+        if (navAgent.remainingDistance < navAgent.stoppingDistance)
         {
-            //agent.enabled = false;
-            //transform.position = originalPos;
-            //destination = Vector3.zero;
-
-            //myAction(this.gameObject.name);
-
-            //myFunc(1);
-               
-            
+            destination = Vector3.zero;            
+            elapsedTime = Time.time - startTime;
+            RankingAction(new Ticket(elapsedTime, this.gameObject.name));                
+            transform.position = originalPos;
+            navAgent.SetDestination(originalPos);           
         }
     }
-
-    
 }

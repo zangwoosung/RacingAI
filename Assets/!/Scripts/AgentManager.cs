@@ -1,30 +1,44 @@
 
+using System;
+using System.Collections;
+
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 
 public class AgentManager : MonoBehaviour
 {
-    public Agent[] agents;
+    public Agent[] agents;   
 
-
+    Queue agentQueue = new Queue();
     public void StartToRun(Vector3 pos)
     {
+        agentQueue.Clear();
         foreach (var agent in agents)
         {
-            float speed = Random.Range(13f, 50f);
-            Vector3 des = pos;// new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f));
-            agent.Setup(speed, des);
-            agent.CallBackAction(MyAction);
-            agent.CallBackFunc(MyFunc);
+            float speed = Random.Range(10, 50);
+            agent.Setup(speed, pos);
+            agent.CallBackAction(CollectAgents);
+
+        }
+
+    }
+
+
+    void CollectAgents(Ticket rank)
+    {
+        agentQueue.Enqueue(rank);
+        CheckAllAgents();
+    }
+    private void CheckAllAgents()
+    {
+        if (agentQueue.Count == agents.Length)
+        {
+            Debug.Log($"All has arrived!!!!!!!!!!!!!!!!!!!!!!!!");
+            foreach (Ticket item in agentQueue)
+                Debug.Log($"{item.Name}  time : {item.ElapsedTime}");
 
         }
     }
-    void MyAction(string name)
-    {
-        Debug.Log("what is the name?" + name);
-    }
-    string  MyFunc(int num)
-    {
-        Debug.Log("My Func " + num);
-        return "100";
-    }
-}   
+}

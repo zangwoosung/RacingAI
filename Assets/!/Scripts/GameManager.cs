@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
-    public Camera mainCamera;
-    public NavMeshAgent agent;
+    public Camera mainCamera;   
     public AgentManager agentManager;
     void Start()
     {
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour
                 Vector3 pos = hitInfo.point;
 
                 pos.y = 0;// = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
-                          // agent.SetDestination(pos);
+                          // navAgent.SetDestination(pos);
 
                 agentManager.StartToRun(pos);
 
