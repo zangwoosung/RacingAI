@@ -29,6 +29,17 @@ public class AgentManager : MonoBehaviour
         }
     }
 
+    void ChangeAgentData()
+    {
+        foreach (var agent in agents)
+        {
+            float speed = Random.Range(10, 50);          
+            agent.GetComponent<NavMeshAgent>().angularSpeed = 120;
+            agent.GetComponent<NavMeshAgent>().acceleration = speed;    
+           //etc
+           
+        }
+    }
 
     void CollectAgents(Ticket rank)
     {

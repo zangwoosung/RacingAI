@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-
-
 public struct Ticket
 {
     public float ElapsedTime;
@@ -41,7 +39,7 @@ public class Agent : MonoBehaviour
     public void CallBackAction(Action<Ticket> action)
     {
         RankingAction = action;
-    }    
+    }        
 
     public void Restore()
     {        
@@ -58,7 +56,7 @@ public class Agent : MonoBehaviour
             elapsedTime = Time.time - startTime;
             RankingAction(new Ticket(elapsedTime, this.gameObject.name));
             navAgent.Warp(originalPos);
-            //navAgent.SetDestination(originalPos);           
+                    
         }
     }
 }
