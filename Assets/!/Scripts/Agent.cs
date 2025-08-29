@@ -56,9 +56,9 @@ public class Agent : MonoBehaviour
         {
             destination = Vector3.zero;            
             elapsedTime = Time.time - startTime;
-            RankingAction(new Ticket(elapsedTime, this.gameObject.name));                
-            transform.position = originalPos;
-            navAgent.SetDestination(originalPos);           
+            RankingAction(new Ticket(elapsedTime, this.gameObject.name));
+            navAgent.Warp(originalPos);
+            //navAgent.SetDestination(originalPos);           
         }
     }
 }

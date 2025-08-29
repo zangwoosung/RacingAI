@@ -4,11 +4,19 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     public Camera mainCamera;   
+    public Camera agentCamera;
     public AgentManager agentManager;
+
+   
+
     void Start()
     {
-
+        mainCamera.enabled = true;
+        agentCamera.enabled = false;
     }
+
+   
+   
 
     void Update()
     {
@@ -19,13 +27,16 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 Vector3 pos = hitInfo.point;
-
-                pos.y = 0;// = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), Mathf.Round(pos.z));
-                          // navAgent.SetDestination(pos);
-
+                pos.y = 0;
                 agentManager.StartToRun(pos);
-
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            bool isMainActive = mainCamera.enabled;
+            mainCamera.enabled = !isMainActive;
+            agentCamera.enabled = isMainActive;
         }
     }
 }
