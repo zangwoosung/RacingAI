@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-
 public class GameManager : MonoBehaviour
 {
     public Camera mainCamera;   

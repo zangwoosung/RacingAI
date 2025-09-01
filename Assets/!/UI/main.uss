@@ -1,0 +1,13 @@
+:root {
+}
+
+.down {
+    flex-grow: 1;
+    translate: 0 480px;
+    opacity: 0;
+}
+
+.up {
+    translate: 0 0;
+    opacity: 1;
+}

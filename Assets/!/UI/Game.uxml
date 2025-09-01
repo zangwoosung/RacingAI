@@ -1,0 +1,28 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/main.uss?fileID=7433441132597879392&amp;guid=6fcfcc975aa4d9046b3f608997a8c05f&amp;type=3#main" />
+    <ui:VisualElement name="VisualElement" class="down up" style="transition-duration: 0.5s;">
+        <ui:VisualElement name="head" style="flex-grow: 1; height: 30%; background-color: rgb(172, 233, 164); flex-direction: row; justify-content: space-between;">
+            <ui:VisualElement style="flex-grow: 0; background-color: rgb(171, 143, 143); width: 200px;">
+                <ui:VisualElement name="myChoice" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Samples/AI%20Navigation/2.0.8/Build%20And%20Connect%20NavMesh%20Surfaces/Materials/modify_crosshair.png?fileID=21300000&amp;guid=28d2c2677149d45e290e8fa042b1b80f&amp;type=3#modify_crosshair&quot;); opacity: 0.61;" />
+                <ui:Label text="Label" name="myChoiceName" style="-unity-text-align: upper-center;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; background-color: rgb(217, 36, 36); width: 200px;">
+                <ui:VisualElement name="AIChoice" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Samples/AI%20Navigation/2.0.8/Build%20And%20Connect%20NavMesh%20Surfaces/Materials/modify_crosshair.png?fileID=21300000&amp;guid=28d2c2677149d45e290e8fa042b1b80f&amp;type=3#modify_crosshair&quot;);" />
+                <ui:Label text="Label" name="AIChoiceName" style="-unity-text-align: upper-center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="body" style="flex-grow: 1; height: 40%; background-color: rgb(214, 203, 78); flex-direction: row; justify-content: center; align-items: center;">
+            <ui:Button text="Button" name="Button01" />
+            <ui:Button text="Button" />
+            <ui:Button text="Button" />
+            <ui:Button text="Button" />
+            <ui:Button text="Button" />
+            <ui:Button text="Button" />
+            <ui:Button text="Button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="foot" style="flex-grow: 1; height: 30%; background-color: rgb(138, 224, 123); flex-direction: row; justify-content: center; align-self: center; align-items: center; width: 100%;">
+            <ui:Button text="Button" />
+            <ui:Button text="Button" name="startBtn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
