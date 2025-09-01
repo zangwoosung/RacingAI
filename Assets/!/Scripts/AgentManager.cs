@@ -10,11 +10,15 @@ using Random = UnityEngine.Random;
 
 public class AgentManager : MonoBehaviour
 {
-    public Agent[] agents;   
+    public Agent[] agents;
     Queue agentQueue = new Queue();
+    bool hasStarted = false;    
     public void StartToRun(Vector3 pos)
     {
-        agentQueue.Clear();        
+        if (hasStarted) return; 
+        hasStarted = true;
+        Debug.Log("One time only ");
+        agentQueue.Clear();
         StartCoroutine(StartOnebyOne(pos));
     }
 
@@ -22,36 +26,29 @@ public class AgentManager : MonoBehaviour
     {
         foreach (var agent in agents)
         {
-            float speed = Random.Range(10, 50);
+            float speed = Random.Range(10, 15);
             agent.Setup(speed, pos);
             agent.CallBackAction(CollectAgents);
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
-    void ChangeAgentData()
-    {
-        foreach (var agent in agents)
-        {
-            float speed = Random.Range(10, 50);          
-            agent.GetComponent<NavMeshAgent>().angularSpeed = 120;
-            agent.GetComponent<NavMeshAgent>().acceleration = speed;    
-           //etc
-           
-        }
-    }
 
     void CollectAgents(Ticket rank)
     {
         agentQueue.Enqueue(rank);
-        CheckAllAgents();
+        Debug.Log("colling Agent " + agentQueue.Count);
+        if (agentQueue.Count == agents.Length)
+        {
+            CheckAllAgents();
+        }
     }
     private void CheckAllAgents()
     {
-        if (agentQueue.Count == agents.Length)
-        {           
-            foreach (Ticket item in agentQueue)
-                Debug.Log($"{item.Name}  time : {item.ElapsedTime}");
-        }
+
+        foreach (Ticket item in agentQueue)
+            Debug.Log($"{item.Name}  time : {item.ElapsedTime}");
+        agentQueue.Clear();
+        hasStarted = false;
     }
 }

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;   
     public Camera agentCamera;
     public AgentManager agentManager;
-
+    [SerializeField] Transform destination;
    
 
     void Start()
@@ -22,14 +22,16 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            agentManager.StartToRun(destination.position);
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
-            {
-                Vector3 pos = hitInfo.point;
-                pos.y = 0;
-                agentManager.StartToRun(pos);
-            }
+            //if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            //{
+            //    Vector3 pos = hitInfo.point;
+            //    pos.y = 0;
+            //    agentManager.StartToRun(pos);
+
+            //}
         }
 
         if (Input.GetKeyDown(KeyCode.C))

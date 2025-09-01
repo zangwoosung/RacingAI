@@ -23,14 +23,14 @@ public class Agent : MonoBehaviour
     float elapsedTime;      
     void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.enabled = true;
+        navAgent = GetComponent<NavMeshAgent>();       
         originalPos = transform.position;
     }
 
     public void Setup(float speed, Vector3 des)
     {
         startTime = Time.time;
+        elapsedTime = 0;
         navAgent.speed = speed;
         navAgent.SetDestination(des);
         destination = des;
