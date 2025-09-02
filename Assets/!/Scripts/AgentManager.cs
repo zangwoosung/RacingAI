@@ -41,6 +41,7 @@ public class AgentManager : MonoBehaviour
         if (agentQueue.Count == agents.Length)
         {
             CheckAllAgents();
+            Debug.Log("All has arrived!");
         }
     }
     private void CheckAllAgents()
