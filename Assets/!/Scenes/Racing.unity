@@ -3180,6 +3180,11 @@ MonoBehaviour:
   _UIDocument: {fileID: 1737498677}
   spriteA: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
   spriteB: {fileID: 21300000, guid: 324fc7bfd9e9d4bf5a618dbb345b0374, type: 3}
+  spriteC: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  spriteD: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  spriteE: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  spriteF: {fileID: 21300000, guid: 64b9e6b8a982c4af1926d152bc025720, type: 3}
+  spriteG: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!64 &3965252306832516170
 MeshCollider:
   m_ObjectHideFlags: 0
