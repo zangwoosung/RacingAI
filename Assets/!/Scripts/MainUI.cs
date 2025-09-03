@@ -1,7 +1,8 @@
 
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 using Sprite = UnityEngine.Sprite;
 
@@ -9,28 +10,22 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     VisualElement root;
-    VisualElement myPick;
-    Button btn01;
-    Button btn02;
-    Button btn03;
-    Button btn04;
-    Button btn05;
-    Button btn06;
-    Button btn07;
-
-    public Sprite spriteA;
-    public Sprite spriteB;
+    VisualElement myPick, AIPick;
+    Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
+    public Sprite spriteA, spriteB;
     public Sprite spriteC;
     public Sprite spriteD;
     public Sprite spriteE;
     public Sprite spriteF;
     public Sprite spriteG;
 
+    List<Button> listButton;
 
+  [SerializeField]  UnityEvent startEvent;
     void Start()
     {
         root = _UIDocument.rootVisualElement;
-
+        root.AddToClassList("default");
         btn01 = root.Q<Button>("btn01");
         btn02 = root.Q<Button>("btn02");
         btn03 = root.Q<Button>("btn03");
@@ -38,9 +33,13 @@ public class MainUI : MonoBehaviour
         btn05 = root.Q<Button>("btn05");
         btn06 = root.Q<Button>("btn06");
         btn07 = root.Q<Button>("btn07");
+        startBtn = root.Q<Button>("startBtn");
+        resetBtn = root.Q<Button>("resetBtn");
 
 
         myPick = root.Q<VisualElement>("myPick");
+        AIPick = root.Q<VisualElement>("AIPick");
+
         myPick.style.backgroundImage = btn01.style.backgroundImage;
         btn01.style.backgroundImage = new StyleBackground(spriteA.texture);
         btn02.style.backgroundImage = new StyleBackground(spriteB.texture);
@@ -49,7 +48,7 @@ public class MainUI : MonoBehaviour
         btn05.style.backgroundImage = new StyleBackground(spriteE.texture);
         btn06.style.backgroundImage = new StyleBackground(spriteF.texture);
         btn07.style.backgroundImage = new StyleBackground(spriteG.texture);
-      
+
         btn01.clicked += () => SwapBackgroundswith(btn01);
         btn02.clicked += () => SwapBackgroundswith(btn02);
         btn03.clicked += () => SwapBackgroundswith(btn03);
@@ -58,43 +57,70 @@ public class MainUI : MonoBehaviour
         btn06.clicked += () => SwapBackgroundswith(btn06);
         btn07.clicked += () => SwapBackgroundswith(btn07);
 
+        startBtn.clicked += () => { 
+            
+            startEvent.Invoke();
 
-       
+            root.AddToClassList("down");
+        
+        };
+        resetBtn.clicked += () => ResetPicks();
+        listButton = new List<Button>();
+        listButton.Add(btn01);
+        listButton.Add(btn02);
+        listButton.Add(btn03);
+        listButton.Add(btn04);
+        listButton.Add(btn05);
+        listButton.Add(btn06);
+        listButton.Add(btn07);
 
+        startBtn.SetEnabled(false);
+        resetBtn.SetEnabled(false);
+    }
 
+    private void ResetPicks()
+    {
+        myPick.style.backgroundImage = null;
+        AIPick.style.backgroundImage = null;
     }
 
     private void SwapBackgroundswith(Button btn)
     {
         myPick.style.backgroundImage = btn.style.backgroundImage;
+
+       StartCoroutine(RansdomPickByAI());
     }
 
-    void SwapBackgrounds()
+    IEnumerator RansdomPickByAI()
     {
-        var temp = btn01.style.backgroundImage;
-        btn01.style.backgroundImage = btn02.style.backgroundImage;
-        btn02.style.backgroundImage = temp;
+        int aiPick = Random.Range(0, listButton.Count);
 
-        myPick.style.backgroundImage = btn01.style.backgroundImage; 
+        yield return new WaitForSeconds(3);
+        AIPick.style.backgroundImage = listButton[aiPick].style.backgroundImage;
+        //SwapBackgroundswith(listButton[aiPick]);
+        yield return new WaitForSeconds(1);
+        resetBtn.SetEnabled(true);
+        startBtn.SetEnabled(true);
+
     }
-    private void Btn01_onClick()
+
+    public void Popup()
     {
-        // Get the current sprites from each button
-        Sprite spriteA = btn01.style.backgroundImage.value.sprite;
-        Sprite spriteB = btn02.style.backgroundImage.value.sprite;
-
-        // Swap them
-        btn01.style.backgroundImage = new StyleBackground(spriteB);
-        btn02.style.backgroundImage = new StyleBackground(spriteA);
-
-
-        Debug.Log("AAAAAaa");
-
+        root.RemoveFromClassList("down");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            root.AddToClassList("down");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+           
+        }
     }
+
+
+
 }
