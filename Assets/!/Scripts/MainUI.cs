@@ -165,8 +165,6 @@ public class MainUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-
-
             PopupLose.visible = false;
             PopupWin.visible = true;
             PopupWin.RemoveFromClassList("dot");
