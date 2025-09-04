@@ -1,0 +1,44 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/main.uss?fileID=7433441132597879392&amp;guid=dd2e96dcf1f89894e921a09c1b74fd23&amp;type=3#main" />
+    <ui:VisualElement class="default">
+        <ui:VisualElement name="head" style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: 30%;">
+            <ui:VisualElement name="myPick" style="flex-grow: 0; background-size: 100% 100%; width: 30%; background-color: rgb(160, 210, 72); -unity-background-image-tint-color: rgb(255, 255, 255);">
+                <ui:Label text="Label" name="myPickLabel" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AIPick" style="flex-grow: 0; width: 30%; background-color: rgb(65, 166, 200);">
+                <ui:Label text="Label" name="AIPickLabel" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center; align-self: center; height: 40%;">
+            <ui:Button text="Button" name="btn01" style="background-image: url(&quot;project://database/Assets/Samples/AI%20Navigation/2.0.8/Build%20And%20Connect%20NavMesh%20Surfaces/Materials/modify_crosshair.png?fileID=21300000&amp;guid=28d2c2677149d45e290e8fa042b1b80f&amp;type=3#modify_crosshair&quot;);" />
+            <ui:Button text="Button" name="btn02" style="background-image: url(&quot;project://database/Packages/com.unity.dt.app-ui/PackageResources/Icons/Regular/SkipBack.png?fileID=21300000&amp;guid=e952e91409bd14b7bb027a67b6189b18&amp;type=3#SkipBack&quot;); -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgba(255, 255, 255, 0.87);" />
+            <ui:Button text="Button" name="btn03" />
+            <ui:Button text="Button" name="btn04" />
+            <ui:Button text="Button" name="btn05" />
+            <ui:Button text="Button" name="btn06" />
+            <ui:Button text="Button" name="btn07" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; height: 30%;">
+            <ui:Button text="Button" name="resetBtn" />
+            <ui:Button text="Button" name="startBtn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PopupWin" class="p-default dot" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.56); transition-timing-function: ease;">
+        <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(55, 139, 220); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
+            <ui:Label text="Label" style="-unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+                <ui:Label text="Label" style="-unity-text-align: upper-center;" />
+            </ui:VisualElement>
+            <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PopupLose" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36);">
+        <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(220, 200, 55); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
+            <ui:Label text="Label" style="-unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+                <ui:Label text="Label" style="-unity-text-align: upper-center;" />
+            </ui:VisualElement>
+            <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

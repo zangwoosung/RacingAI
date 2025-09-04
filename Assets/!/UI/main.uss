@@ -1,13 +1,28 @@
 :root {
 }
 
-.down {
-    flex-grow: 1;
-    translate: 0 480px;
-    opacity: 0;
+.default {
+    height: 100%;
+    transition-duration: 0.5s;
 }
 
-.up {
-    translate: 0 0;
-    opacity: 1;
+.down {
+    translate: 0 100%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.p-default {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.dot {
+    scale: 0 0 0;
+    transition-duration: 0.3s;
 }
