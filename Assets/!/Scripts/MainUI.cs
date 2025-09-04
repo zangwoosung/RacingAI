@@ -1,16 +1,18 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 using Sprite = UnityEngine.Sprite;
 
 public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     VisualElement root;
-    VisualElement myPick, AIPick;
+    VisualElement myPick, AIPick, PopupWin, PopupLose;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     public Sprite spriteA, spriteB;
     public Sprite spriteC;
@@ -21,7 +23,7 @@ public class MainUI : MonoBehaviour
 
     List<Button> listButton;
 
-  [SerializeField]  UnityEvent startEvent;
+    [SerializeField] UnityEvent startEvent;
     void Start()
     {
         root = _UIDocument.rootVisualElement;
@@ -35,6 +37,22 @@ public class MainUI : MonoBehaviour
         btn07 = root.Q<Button>("btn07");
         startBtn = root.Q<Button>("startBtn");
         resetBtn = root.Q<Button>("resetBtn");
+
+        PopupWin = root.Q<VisualElement>("PopupWin");
+
+        closePopupBtn = PopupWin.Q<Button>();    
+        closePopupBtn.clicked += () => { Debug.Log("I won this session!"); };
+
+        PopupLose = root.Q<VisualElement>("PopupLose");
+
+
+
+
+
+
+
+        PopupWin.visible = false;
+        PopupLose.visible = false;
 
 
         myPick = root.Q<VisualElement>("myPick");
@@ -57,12 +75,13 @@ public class MainUI : MonoBehaviour
         btn06.clicked += () => SwapBackgroundswith(btn06);
         btn07.clicked += () => SwapBackgroundswith(btn07);
 
-        startBtn.clicked += () => { 
-            
+        startBtn.clicked += () =>
+        {
+
             startEvent.Invoke();
 
             root.AddToClassList("down");
-        
+
         };
         resetBtn.clicked += () => ResetPicks();
         listButton = new List<Button>();
@@ -77,6 +96,33 @@ public class MainUI : MonoBehaviour
         startBtn.SetEnabled(false);
         resetBtn.SetEnabled(false);
     }
+    Button closePopupBtn;
+    public void ResultPopup(Action action, string message = "who win?")
+    {
+
+        var closePopupBtn = PopupWin.Q<Button>("closeBtn");
+        var body = PopupWin.Q<VisualElement>("body");
+        body.Remove(closePopupBtn);
+        Label label = PopupWin.Q<Label>();
+        label.text = message;
+
+
+        Button button = new Button();
+        PopupWin.Add(button);
+        button.clicked += () => { action(); };
+
+    }
+    public void ResultPopupWith(VisualElement pop, Action action, string message = "who win?")
+    {
+
+        closePopupBtn = pop.Q<Button>();
+
+        Label label = pop.Q<Label>();
+        label.text = message;
+
+        closePopupBtn.clicked += () => { action(); };
+
+    }
 
     private void ResetPicks()
     {
@@ -87,8 +133,7 @@ public class MainUI : MonoBehaviour
     private void SwapBackgroundswith(Button btn)
     {
         myPick.style.backgroundImage = btn.style.backgroundImage;
-
-       StartCoroutine(RansdomPickByAI());
+        StartCoroutine(RansdomPickByAI());
     }
 
     IEnumerator RansdomPickByAI()
@@ -97,27 +142,52 @@ public class MainUI : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         AIPick.style.backgroundImage = listButton[aiPick].style.backgroundImage;
-        //SwapBackgroundswith(listButton[aiPick]);
         yield return new WaitForSeconds(1);
         resetBtn.SetEnabled(true);
         startBtn.SetEnabled(true);
 
     }
 
-    public void Popup()
+    public void ShowMainUI()
     {
         root.RemoveFromClassList("down");
     }
 
+    void YouWinMessage()
+    {
+        Debug.Log("You Win");
+    }
+    void AIWineMessage()
+    {
+        Debug.Log("AI Win, ");
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            root.AddToClassList("down");
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
+
+
+            PopupLose.visible = false;
+            PopupWin.visible = true;
+            PopupWin.RemoveFromClassList("dot");
+
            
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            PopupWin.visible = false;
+            PopupLose.visible = true;
+            PopupLose.RemoveFromClassList("dot");
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            PopupLose.AddToClassList("dot");
+            PopupWin.AddToClassList("dot");
+
         }
     }
 
