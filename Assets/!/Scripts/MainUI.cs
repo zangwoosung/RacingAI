@@ -12,7 +12,7 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     VisualElement root;
-    VisualElement myPick, AIPick, PopupWin, PopupLose;
+    VisualElement Main, myPick, AIPick, PopupWin, PopupLose, sample;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     public Sprite spriteA, spriteB;
     public Sprite spriteC;
@@ -20,6 +20,7 @@ public class MainUI : MonoBehaviour
     public Sprite spriteE;
     public Sprite spriteF;
     public Sprite spriteG;
+    
 
     List<Button> listButton;
 
@@ -27,6 +28,7 @@ public class MainUI : MonoBehaviour
     void Start()
     {
         root = _UIDocument.rootVisualElement;
+
         root.AddToClassList("default");
         btn01 = root.Q<Button>("btn01");
         btn02 = root.Q<Button>("btn02");
@@ -40,20 +42,26 @@ public class MainUI : MonoBehaviour
 
         PopupWin = root.Q<VisualElement>("PopupWin");
 
-        closePopupBtn = PopupWin.Q<Button>();    
-        closePopupBtn.clicked += () => { Debug.Log("I won this session!"); };
+        var CloseWin = PopupWin.Q<Button>();
+        CloseWin.clicked += () =>
+        {
+            PopupWin.AddToClassList("dot");
+        };
 
         PopupLose = root.Q<VisualElement>("PopupLose");
+        var closeLose = PopupLose.Q<Button>();
+        closeLose.clicked += () =>
+        {
+            PopupLose.AddToClassList("dot");
+        };
 
-
-
-
+        sample = root.Q<VisualElement>("sample");
 
 
 
         PopupWin.visible = false;
         PopupLose.visible = false;
-
+        sample.visible = false;
 
         myPick = root.Q<VisualElement>("myPick");
         AIPick = root.Q<VisualElement>("AIPick");
@@ -96,7 +104,6 @@ public class MainUI : MonoBehaviour
         startBtn.SetEnabled(false);
         resetBtn.SetEnabled(false);
     }
-    Button closePopupBtn;
     public void ResultPopup(Action action, string message = "who win?")
     {
 
@@ -112,17 +119,7 @@ public class MainUI : MonoBehaviour
         button.clicked += () => { action(); };
 
     }
-    public void ResultPopupWith(VisualElement pop, Action action, string message = "who win?")
-    {
-
-        closePopupBtn = pop.Q<Button>();
-
-        Label label = pop.Q<Label>();
-        label.text = message;
-
-        closePopupBtn.clicked += () => { action(); };
-
-    }
+    
 
     private void ResetPicks()
     {
@@ -133,7 +130,34 @@ public class MainUI : MonoBehaviour
     private void SwapBackgroundswith(Button btn)
     {
         myPick.style.backgroundImage = btn.style.backgroundImage;
+        Label label = myPick.Q<Label>();
+        
+        
+        label.text = btn.name;
+
         StartCoroutine(RansdomPickByAI());
+    }
+
+    public void ShowSessionResult(Ticket ticket)
+    {
+
+        Label label = myPick.Q<Label>();
+
+        Debug.Log("my Pick " + label.text);
+        Debug.Log("ticket  " + ticket.Name);
+
+
+        if (label.text == ticket.Name)
+        {
+            ShowWinPopup();
+        }
+        else
+        {
+            ShowLosePopup();
+        }
+
+        Debug.Log("winner name " + ticket.Name);
+
     }
 
     IEnumerator RansdomPickByAI()
@@ -148,28 +172,45 @@ public class MainUI : MonoBehaviour
 
     }
 
+    public void ShowWinPopup()
+    {
+        root.RemoveFromClassList("down");
+        PopupLose.visible = false;
+        PopupWin.visible = true;
+        var label = PopupWin.Q<Label>();
+        label.text = "you win";
+        PopupWin.RemoveFromClassList("dot");
+
+    }
+    public void ShowLosePopup()
+    {
+        root.RemoveFromClassList("down");
+
+
+        PopupWin.visible = false;
+        PopupLose.visible = true;
+        var label = PopupLose.Q<Label>();
+        label.text = "you lose";
+        PopupLose.RemoveFromClassList("dot");
+
+
+    }
+
     public void ShowMainUI()
     {
         root.RemoveFromClassList("down");
     }
 
-    void YouWinMessage()
-    {
-        Debug.Log("You Win");
-    }
-    void AIWineMessage()
-    {
-        Debug.Log("AI Win, ");
-    }
+
     private void Update()
-    {
+    {/*
         if (Input.GetKeyDown(KeyCode.A))
         {
             PopupLose.visible = false;
             PopupWin.visible = true;
+            var label = PopupWin.Q<Label>();
+            label.text = "you win";
             PopupWin.RemoveFromClassList("dot");
-
-           
 
         }
 
@@ -177,6 +218,8 @@ public class MainUI : MonoBehaviour
         {
             PopupWin.visible = false;
             PopupLose.visible = true;
+            var label = PopupLose.Q<Label>();
+            label.text = "you lose";
             PopupLose.RemoveFromClassList("dot");
 
         }
@@ -186,9 +229,7 @@ public class MainUI : MonoBehaviour
             PopupLose.AddToClassList("dot");
             PopupWin.AddToClassList("dot");
 
-        }
+        }*/
     }
-
-
 
 }

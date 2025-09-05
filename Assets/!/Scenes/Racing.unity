@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 374640383}
   - component: {fileID: 374640378}
   m_Layer: 0
-  m_Name: Agent (2)
+  m_Name: btn01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2058932863}
         m_TargetAssemblyTypeName: MainUI, Assembly-CSharp
-        m_MethodName: Popup
+        m_MethodName: ShowWinPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -779,12 +779,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  sessionOverEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2058932863}
+        m_TargetAssemblyTypeName: MainUI, Assembly-CSharp
+        m_MethodName: ShowSessionResult
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  GetNamesEvent:
+    m_PersistentCalls:
+      m_Calls: []
   agents:
   - {fileID: 514877840}
-  - {fileID: 545106171}
   - {fileID: 374640383}
   - {fileID: 1972125353}
   - {fileID: 1973774742}
+  - {fileID: 545106171}
   - {fileID: 547690809}
   - {fileID: 1611687295}
 --- !u!1 &440921068
@@ -850,7 +868,7 @@ GameObject:
   - component: {fileID: 514877840}
   - component: {fileID: 514877835}
   m_Layer: 0
-  m_Name: Agent (1)
+  m_Name: btn02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,7 +1037,7 @@ GameObject:
   - component: {fileID: 545106171}
   - component: {fileID: 545106166}
   m_Layer: 0
-  m_Name: 'Agent '
+  m_Name: btn07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1188,7 +1206,7 @@ GameObject:
   - component: {fileID: 547690809}
   - component: {fileID: 547690804}
   m_Layer: 0
-  m_Name: Agent (5)
+  m_Name: btn05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1588,8 +1606,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 514877834}
   - {fileID: 374640377}
+  - {fileID: 514877834}
   - {fileID: 1972125347}
   - {fileID: 1973774736}
   - {fileID: 547690803}
@@ -1652,7 +1670,7 @@ GameObject:
   - component: {fileID: 1611687295}
   - component: {fileID: 1611687296}
   m_Layer: 0
-  m_Name: Agent (6)
+  m_Name: btn06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1881,7 +1899,7 @@ GameObject:
   - component: {fileID: 1972125353}
   - component: {fileID: 1972125348}
   m_Layer: 0
-  m_Name: Agent (3)
+  m_Name: btn03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2050,7 +2068,7 @@ GameObject:
   - component: {fileID: 1973774742}
   - component: {fileID: 1973774737}
   m_Layer: 0
-  m_Name: Agent (4)
+  m_Name: btn04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
