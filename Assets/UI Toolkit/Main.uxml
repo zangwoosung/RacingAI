@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/main.uss?fileID=7433441132597879392&amp;guid=dd2e96dcf1f89894e921a09c1b74fd23&amp;type=3#main" />
-    <ui:VisualElement class="default" style="display: none;">
+    <ui:VisualElement name="Main" class="default" style="display: flex;">
         <ui:VisualElement name="head" style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: 30%;">
             <ui:VisualElement name="myPick" style="flex-grow: 0; background-size: 100% 100%; width: 30%; background-color: rgb(160, 210, 72); -unity-background-image-tint-color: rgb(255, 255, 255);">
                 <ui:Label text="Label" name="myPickLabel" />
@@ -23,7 +23,7 @@
             <ui:Button text="Button" name="startBtn" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="PopupWin" class="p-default dot" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.56); transition-timing-function: ease; display: none;">
+    <ui:VisualElement name="PopupWin" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.56); transition-timing-function: ease; display: flex;">
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(55, 139, 220); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
             <ui:VisualElement style="flex-grow: 1; justify-content: center;">
@@ -32,7 +32,7 @@
             <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="PopupLose" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); display: none;">
+    <ui:VisualElement name="PopupLose" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); display: flex;">
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(220, 200, 55); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
             <ui:VisualElement style="flex-grow: 1; justify-content: center;">
@@ -41,7 +41,7 @@
             <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="sample" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); opacity: 1;">
+    <ui:VisualElement name="sample" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); opacity: 1; display: none;">
         <ui:VisualElement name="background" class="on off" style="transition-duration: 0.5s;" />
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(220, 200, 55); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
