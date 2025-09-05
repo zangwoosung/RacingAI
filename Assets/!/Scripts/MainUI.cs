@@ -12,7 +12,7 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     VisualElement root;
-    VisualElement myPick, AIPick, PopupWin, PopupLose;
+    VisualElement myPick, AIPick, PopupWin, PopupLose, sample;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     public Sprite spriteA, spriteB;
     public Sprite spriteC;
@@ -45,7 +45,7 @@ public class MainUI : MonoBehaviour
 
         PopupLose = root.Q<VisualElement>("PopupLose");
 
-
+        sample = root.Q<VisualElement>("sample");
 
 
 
@@ -53,7 +53,7 @@ public class MainUI : MonoBehaviour
 
         PopupWin.visible = false;
         PopupLose.visible = false;
-
+        sample.visible = false; 
 
         myPick = root.Q<VisualElement>("myPick");
         AIPick = root.Q<VisualElement>("AIPick");
@@ -165,19 +165,19 @@ public class MainUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            PopupLose.visible = false;
-            PopupWin.visible = true;
-            PopupWin.RemoveFromClassList("dot");
+           // PopupLose.visible = false;
+           // PopupWin.visible = true;
+           // PopupWin.RemoveFromClassList("dot");
 
-           
-
+            sample.visible = true;
+            sample.AddToClassList("off");
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            PopupWin.visible = false;
-            PopupLose.visible = true;
-            PopupLose.RemoveFromClassList("dot");
+           // PopupWin.visible = false;
+           // PopupLose.visible = true;
+           // PopupLose.RemoveFromClassList("dot");
 
         }
 
