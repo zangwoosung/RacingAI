@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -11,22 +12,19 @@ using Sprite = UnityEngine.Sprite;
 public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
-    VisualElement root;
-    VisualElement Main, myPick, AIPick, PopupWin, PopupLose, sample;
-    Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
-    public Sprite spriteA, spriteB;
-    public Sprite spriteC;
-    public Sprite spriteD;
-    public Sprite spriteE;
-    public Sprite spriteF;
-    public Sprite spriteG;
-    
-
-    List<Button> listButton;
-
     [SerializeField] UnityEvent startEvent;
+
+    public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
+
+    VisualElement root, Main, myPick, AIPick, PopupWin, PopupLose, sample;
+    Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
+    List<Button> listButton;
+    Sprite sprite;
+    Texture2D texture;
+    Dictionary<string, Sprite> SpriteDict = new Dictionary<string, Sprite>();
     void Start()
     {
+        sprite = spriteA;
         root = _UIDocument.rootVisualElement;
 
         root.AddToClassList("default");
@@ -58,7 +56,6 @@ public class MainUI : MonoBehaviour
         sample = root.Q<VisualElement>("sample");
 
 
-
         PopupWin.visible = false;
         PopupLose.visible = false;
         sample.visible = false;
@@ -74,6 +71,15 @@ public class MainUI : MonoBehaviour
         btn05.style.backgroundImage = new StyleBackground(spriteE.texture);
         btn06.style.backgroundImage = new StyleBackground(spriteF.texture);
         btn07.style.backgroundImage = new StyleBackground(spriteG.texture);
+        
+        SpriteDict.Add("bear", spriteA);
+        SpriteDict.Add("cat",  spriteB);
+        SpriteDict.Add("dog",  spriteC);
+        SpriteDict.Add("eagle", spriteD);
+        SpriteDict.Add("puma", spriteE);
+        SpriteDict.Add("shark", spriteF);
+        SpriteDict.Add("tiger", spriteG);
+
 
         btn01.clicked += () => SwapBackgroundswith(btn01);
         btn02.clicked += () => SwapBackgroundswith(btn02);
@@ -106,20 +112,18 @@ public class MainUI : MonoBehaviour
     }
     public void ResultPopup(Action action, string message = "who win?")
     {
-
         var closePopupBtn = PopupWin.Q<Button>("closeBtn");
         var body = PopupWin.Q<VisualElement>("body");
         body.Remove(closePopupBtn);
         Label label = PopupWin.Q<Label>();
         label.text = message;
 
-
         Button button = new Button();
         PopupWin.Add(button);
         button.clicked += () => { action(); };
 
     }
-    
+
 
     private void ResetPicks()
     {
@@ -129,107 +133,67 @@ public class MainUI : MonoBehaviour
 
     private void SwapBackgroundswith(Button btn)
     {
+        StopAllCoroutines();
+        AIPick.style.backgroundImage = null; 
+
         myPick.style.backgroundImage = btn.style.backgroundImage;
         Label label = myPick.Q<Label>();
-        
-        
-        label.text = btn.name;
+        SpriteRenderer spriteRenderer = new SpriteRenderer();
+       
+        var obj = btn.style.backgroundImage.value.texture;
+
+        label.text = obj.name;
 
         StartCoroutine(RansdomPickByAI());
-    }
+    }       
+      
+   
+    public void TicketAndSprite(Ticket ticket, SpriteRenderer sr)
+    {      
 
-    public void ShowSessionResult(Ticket ticket)
-    {
+        root.RemoveFromClassList("down");
 
-        Label label = myPick.Q<Label>();
+        PopupLose.visible = false;
+        PopupWin.visible = true;
 
-        Debug.Log("my Pick " + label.text);
-        Debug.Log("ticket  " + ticket.Name);
+        this.texture = SpriteDict[ticket.Name].texture;
+        
+        Label pick = myPick.Q<Label>();
+        var photo = PopupWin.Q<VisualElement>("photo");
+        photo.style.backgroundImage = new StyleBackground(texture);
 
+        Debug.Log($"{pick.text}  ***  ticket name {ticket.Name}  sprite name  {this.texture.name}");
 
-        if (label.text == ticket.Name)
+        var label = PopupWin.Q<Label>();
+
+        if (pick.text == ticket.Name) //ticket.Name)
         {
-            ShowWinPopup();
+            label.text = "You won!";
         }
         else
         {
-            ShowLosePopup();
+            label.text = "You lost!";
         }
 
-        Debug.Log("winner name " + ticket.Name);
+        PopupWin.RemoveFromClassList("dot");
 
     }
+  
 
     IEnumerator RansdomPickByAI()
     {
         int aiPick = Random.Range(0, listButton.Count);
-
         yield return new WaitForSeconds(3);
         AIPick.style.backgroundImage = listButton[aiPick].style.backgroundImage;
         yield return new WaitForSeconds(1);
         resetBtn.SetEnabled(true);
         startBtn.SetEnabled(true);
 
-    }
-
-    public void ShowWinPopup()
-    {
-        root.RemoveFromClassList("down");
-        PopupLose.visible = false;
-        PopupWin.visible = true;
-        var label = PopupWin.Q<Label>();
-        label.text = "you win";
-        PopupWin.RemoveFromClassList("dot");
-
-    }
-    public void ShowLosePopup()
-    {
-        root.RemoveFromClassList("down");
-
-
-        PopupWin.visible = false;
-        PopupLose.visible = true;
-        var label = PopupLose.Q<Label>();
-        label.text = "you lose";
-        PopupLose.RemoveFromClassList("dot");
-
-
-    }
+    }   
 
     public void ShowMainUI()
     {
         root.RemoveFromClassList("down");
-    }
-
-
-    private void Update()
-    {/*
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PopupLose.visible = false;
-            PopupWin.visible = true;
-            var label = PopupWin.Q<Label>();
-            label.text = "you win";
-            PopupWin.RemoveFromClassList("dot");
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PopupWin.visible = false;
-            PopupLose.visible = true;
-            var label = PopupLose.Q<Label>();
-            label.text = "you lose";
-            PopupLose.RemoveFromClassList("dot");
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            PopupLose.AddToClassList("dot");
-            PopupWin.AddToClassList("dot");
-
-        }*/
     }
 
 }

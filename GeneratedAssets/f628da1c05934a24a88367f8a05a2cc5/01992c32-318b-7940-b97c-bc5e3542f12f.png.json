@@ -1,0 +1,20 @@
+{
+    "asset": "f628da1c05934a24a88367f8a05a2cc5",
+    "fileName": "01992c32-318b-7940-b97c-bc5e3542f12f.png",
+    "prompt": "cute puma, 256 by 256 in size",
+    "negativePrompt": "",
+    "model": "b91fcf71-f4cf-43cb-ba1e-1f22a1296e46",
+    "modelName": "8-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "c75deb06ca5c52d9251bfb1fd1c2d892",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

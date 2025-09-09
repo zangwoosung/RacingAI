@@ -1,0 +1,20 @@
+{
+    "asset": "43de693ffdc4ffc458bff93b7500c481",
+    "fileName": "01992bda-066e-71b6-9519-a52b4e064ac9.png",
+    "prompt": "cute agent ",
+    "negativePrompt": "",
+    "model": "30e7ef61-9c8a-4c75-b575-4e0f2608cc2c",
+    "modelName": "Action Game",
+    "customSeed": -1,
+    "w3CTraceId": "9097b596a4d9b36feccc09d6dc8506e1",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

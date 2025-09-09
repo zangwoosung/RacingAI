@@ -1,10 +1,13 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
     public Camera mainCamera;
-   // public Camera agentCamera;
+  
     public AgentManager agentManager;
     [SerializeField] Transform destination;
 
@@ -12,7 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera.enabled = true;
-     //   agentCamera.enabled = false;
+       
     }
 
     public void StartGame()
@@ -21,13 +24,5 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            bool isMainActive = mainCamera.enabled;
-            mainCamera.enabled = !isMainActive;
-           // agentCamera.enabled = isMainActive;
-        }
-    }
+    
 }

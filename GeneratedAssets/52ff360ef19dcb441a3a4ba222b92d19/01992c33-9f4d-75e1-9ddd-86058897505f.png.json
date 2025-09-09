@@ -1,0 +1,20 @@
+{
+    "asset": "52ff360ef19dcb441a3a4ba222b92d19",
+    "fileName": "01992c33-9f4d-75e1-9ddd-86058897505f.png",
+    "prompt": "cute eagle, 256 by 256 in size",
+    "negativePrompt": "",
+    "model": "b91fcf71-f4cf-43cb-ba1e-1f22a1296e46",
+    "modelName": "8-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "4ddd5f5d5dc50add540afadc1e7c6f21",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}
