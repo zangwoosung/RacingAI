@@ -1,0 +1,20 @@
+{
+    "asset": "f646c9daae29a4c4f8ba9555df8835c0",
+    "fileName": "01992c35-e104-706e-906b-08ad676ae5fa.png",
+    "prompt": "cute shark, 256 by 256 in size",
+    "negativePrompt": "",
+    "model": "b91fcf71-f4cf-43cb-ba1e-1f22a1296e46",
+    "modelName": "8-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "d49bf98495b9a817ecc98dd90ded9da3",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

@@ -1,0 +1,20 @@
+{
+    "asset": "ec81c0665982abb4884dbe78240ee642",
+    "fileName": "01992d3b-eaee-7c01-a392-5356699e3be1.png",
+    "prompt": "monkey, 256 by 256 in size",
+    "negativePrompt": "",
+    "model": "b91fcf71-f4cf-43cb-ba1e-1f22a1296e46",
+    "modelName": "8-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "3ed812401a677e70cfe5fbe9355aba0d",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

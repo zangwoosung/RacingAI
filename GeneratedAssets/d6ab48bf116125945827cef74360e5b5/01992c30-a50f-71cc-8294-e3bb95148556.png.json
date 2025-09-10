@@ -1,0 +1,20 @@
+{
+    "asset": "d6ab48bf116125945827cef74360e5b5",
+    "fileName": "01992c30-a50f-71cc-8294-e3bb95148556.png",
+    "prompt": "cute cat, 256 by 256 in size",
+    "negativePrompt": "",
+    "model": "b91fcf71-f4cf-43cb-ba1e-1f22a1296e46",
+    "modelName": "8-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "7f93ca62c28683cb4a7e11146be45f14",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

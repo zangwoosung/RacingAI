@@ -10,38 +10,38 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center; align-self: center; height: 40%;">
-            <ui:Button text="Button" name="btn01" style="background-image: url(&quot;project://database/Assets/Samples/AI%20Navigation/2.0.8/Build%20And%20Connect%20NavMesh%20Surfaces/Materials/modify_crosshair.png?fileID=21300000&amp;guid=28d2c2677149d45e290e8fa042b1b80f&amp;type=3#modify_crosshair&quot;);" />
-            <ui:Button text="Button" name="btn02" style="background-image: url(&quot;project://database/Packages/com.unity.dt.app-ui/PackageResources/Icons/Regular/SkipBack.png?fileID=21300000&amp;guid=e952e91409bd14b7bb027a67b6189b18&amp;type=3#SkipBack&quot;); -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgba(255, 255, 255, 0.87);" />
-            <ui:Button text="Button" name="btn03" />
-            <ui:Button text="Button" name="btn04" />
-            <ui:Button text="Button" name="btn05" />
-            <ui:Button text="Button" name="btn06" />
-            <ui:Button text="Button" name="btn07" />
+            <ui:Button text="Button" name="btn01" style="background-image: url(&apos;project://database/Assets/Tiger.png?fileID=21300000&amp;guid=094404c3b02f0c149a2619afbbc300d3&amp;type=3#Tiger&apos;); width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn02" style="background-image: url(&quot;project://database/Packages/com.unity.dt.app-ui/PackageResources/Icons/Regular/SkipBack.png?fileID=21300000&amp;guid=e952e91409bd14b7bb027a67b6189b18&amp;type=3#SkipBack&quot;); -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgba(255, 255, 255, 0.87); width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn03" style="width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn04" style="width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn05" style="width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn06" style="width: 100px; height: 100px;" />
+            <ui:Button text="Button" name="btn07" style="width: 100px; height: 100px;" />
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; height: 30%;">
-            <ui:Button text="Button" name="resetBtn" />
-            <ui:Button text="Button" name="startBtn" />
+        <ui:VisualElement style="flex-grow: 1; height: 30%; flex-direction: row; justify-content: center; align-items: center;">
+            <ui:Button text="Button" name="resetBtn" style="background-size: 100% 100%; width: 20%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+            <ui:Button text="Button" name="startBtn" style="width: 20%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="PopupWin" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.56); transition-timing-function: ease; display: flex;">
+    <ui:VisualElement name="PopupWin" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.56); transition-timing-function: ease; display: flex; visibility: hidden;">
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(55, 139, 220); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
-            <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+            <ui:VisualElement name="photo" style="flex-grow: 1; justify-content: center; background-color: rgb(178, 120, 120);">
                 <ui:Label text="Label" style="-unity-text-align: upper-center;" />
             </ui:VisualElement>
             <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="PopupLose" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); display: flex;">
+    <ui:VisualElement name="PopupLose" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); display: flex; visibility: hidden;">
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(220, 200, 55); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
-            <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+            <ui:VisualElement name="photo" style="flex-grow: 1; justify-content: center;">
                 <ui:Label text="Label" style="-unity-text-align: upper-center;" />
             </ui:VisualElement>
             <ui:Button text="Button" name="closeBtn" style="background-color: rgb(175, 220, 77);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="sample" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); opacity: 1; display: none;">
+    <ui:VisualElement name="sample" class="p-default" style="transition-duration: 0.3s; background-color: rgba(0, 0, 0, 0.36); opacity: 1; display: none; visibility: hidden;">
         <ui:VisualElement name="background" class="on off" style="transition-duration: 0.5s;" />
         <ui:VisualElement name="body" style="flex-grow: 0; background-size: 100% 100%; background-color: rgb(220, 200, 55); width: 50%; height: 50%; justify-content: center; align-content: center; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; align-self: center;">
             <ui:Label text="Label" style="-unity-text-align: upper-center;" />
