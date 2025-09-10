@@ -16,13 +16,13 @@ public class CameraManager : MonoBehaviour
 
     public void SwitchCamera()
     {
-        // Disable current camera
+       
         cameras[currentIndex].gameObject.SetActive(false);
 
-        // Move to next index (wrap around)
+    
         currentIndex = (currentIndex + 1) % cameras.Length;
 
-        // Enable the new camera
+       
         cameras[currentIndex].gameObject.SetActive(true);
     }
     void Update()
