@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/Login.uss?fileID=7433441132597879392&amp;guid=08ed00813e92fc14ab5a174e0aebd561&amp;type=3#Login" />
+    <ui:VisualElement style="flex-grow: 1; background-image: none; flex-direction: row; visibility: hidden;">
+        <ui:VisualElement name="bg" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgb(245, 239, 69); visibility: visible; opacity: 1; display: flex;" />
+        <ui:VisualElement style="flex-grow: 0; align-items: center; justify-content: center; width: 50%; visibility: visible;">
+            <ui:TextField placeholder-text="email" name="newUserEmailInputField" style="width: 80%; -unity-text-align: upper-right; font-size: 24px;" />
+            <ui:TextField placeholder-text="psssword" name="newUserPasswordInputField" password="true" style="width: 80%; font-size: 24px;" />
+            <ui:VisualElement style="flex-grow: 0; height: 50px; width: 100%;" />
+            <ui:Button text="가입하기" name="joinBtn" style="background-image: none; -unity-background-scale-mode: scale-and-crop; background-color: rgb(49, 200, 204); -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/noton/NotoSansKR-Black.otf?fileID=12800000&amp;guid=4067d212c2fbc3a4e84be8116e0da18f&amp;type=3#NotoSansKR-Black&apos;); width: 100px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; align-items: center; justify-content: center; width: 50%; visibility: visible;">
+            <ui:TextField placeholder-text="email" name="existingUserEmailInputField" style="width: 80%; font-size: 24px;" />
+            <ui:TextField placeholder-text="password" name="existingUserPasswordInputField" password="true" style="width: 80%; font-size: 24px;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 0; height: 50px;">
+                <ui:Toggle label="remember me" name="rememberMeToggle" />
+            </ui:VisualElement>
+            <ui:Button text="로그인 &#10;" name="loginBtn" style="background-image: none; background-color: rgb(189, 170, 36); -unity-text-align: middle-center; -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/noton/NotoSansKR-Black.otf?fileID=12800000&amp;guid=4067d212c2fbc3a4e84be8116e0da18f&amp;type=3#NotoSansKR-Black&apos;); width: 100px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(149, 149, 149); border-right-color: rgb(149, 149, 149); border-top-color: rgb(149, 149, 149); border-bottom-color: rgb(149, 149, 149);" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; align-items: center; justify-content: center; width: 50%; align-content: flex-end; -unity-text-align: lower-left; visibility: visible;">
+            <ui:Label text="ID" name="loginInformationText" style="width: 80%; -unity-text-align: middle-center; height: 10%; background-color: rgb(111, 225, 188); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; justify-content: flex-end; align-content: flex-end; font-size: 24px;" />
+            <ui:Label name="playerIdText" style="width: 80%; -unity-text-align: middle-center; height: 10%; background-color: rgb(210, 236, 94); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; font-size: 24px;" />
+            <ui:VisualElement style="flex-grow: 0; height: 50px;" />
+            <ui:Button text="손님입장" name="guestBtn" style="background-image: none; -unity-background-scale-mode: scale-and-crop; background-color: rgb(74, 100, 101); -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/noton/NotoSansKR-Black.otf?fileID=12800000&amp;guid=4067d212c2fbc3a4e84be8116e0da18f&amp;type=3#NotoSansKR-Black&apos;); width: 100px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Label text="Welcome" name="infoText" style="position: absolute; top: 42px; left: auto; align-self: center; justify-content: center; align-items: center; width: 80%; -unity-text-align: upper-center; height: 80px; font-size: 30px; -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/noton/NotoSansKR-Black.otf?fileID=12800000&amp;guid=4067d212c2fbc3a4e84be8116e0da18f&amp;type=3#NotoSansKR-Black&apos;); white-space: normal;" />
+    <ui:Button text="Button" name="updateBtn" style="position: absolute; display: none;" />
+    <ui:Label text="SAHARA " name="SAHARA" style="position: absolute; top: auto; left: auto; align-self: center; justify-content: flex-end; align-items: center; width: 80%; -unity-text-align: lower-center; height: 80px; font-size: 20px; -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/noton/NotoSansKR-Light.otf?fileID=12800000&amp;guid=89570bb6524b71041a8a3c11c0ad34ad&amp;type=3#NotoSansKR-Light&apos;); bottom: 10px; align-content: flex-end;" />
+</ui:UXML>
