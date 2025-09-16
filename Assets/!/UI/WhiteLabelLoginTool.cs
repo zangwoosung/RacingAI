@@ -182,10 +182,8 @@ namespace LootLocker
                     loginInformationText.text = "Guest session started";
                     playerIdText.text = "Player ID:" + response.player_id.ToString();
                     playerID = response.player_id.ToString();
-                    //SceneManager.LoadScene("SAHARA");
-                    root.visible = false;
-                    root.Q<VisualElement>("bg").visible = false;
 
+                    root.AddToClassList("dot");
                     _mainDocument.rootVisualElement.visible = true;
                     _miniMapDocument.rootVisualElement.visible = true;
 
@@ -246,9 +244,7 @@ namespace LootLocker
                     // leaderboard.UploadScore("800");
                     infoText.text = "Player was logged in succesfully";
 
-                    root.visible = false;
-                   // root.Q<VisualElement>("bg").visible = false;
-
+                    root.AddToClassList("dot");
                     _mainDocument.rootVisualElement.visible = true;
                     _miniMapDocument.rootVisualElement.visible = true;
                 }
