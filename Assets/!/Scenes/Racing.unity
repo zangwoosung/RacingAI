@@ -1282,6 +1282,7 @@ MonoBehaviour:
   AgentUnityEvent:
     m_PersistentCalls:
       m_Calls: []
+  leaderboardRacingAI: {fileID: 1683222630}
   agents:
   - {fileID: 514877840}
   - {fileID: 374640383}
@@ -1290,6 +1291,7 @@ MonoBehaviour:
   - {fileID: 545106171}
   - {fileID: 547690809}
   - {fileID: 1611687295}
+  myPickSO: {fileID: 11400000, guid: 190fb5da67694ab44b6bd8f4c3e83892, type: 2}
 --- !u!1 &430871431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,55 +1602,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Agent
   _UIDocument: {fileID: 1925988283}
---- !u!1 &534710372
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 534710374}
-  - component: {fileID: 534710373}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &534710373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534710372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b126ef5e019ba0c449cc99f6b25880b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  scoreInputField: {fileID: 0}
-  infoText: 
-  playerIDText: 
-  leaderboardTop10Text: 
-  leaderboardCenteredText: 
---- !u!4 &534710374
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534710372}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545106164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3475,7 +3428,6 @@ MonoBehaviour:
   _styleSheet: {fileID: 7433441132597879392, guid: 08ed00813e92fc14ab5a174e0aebd561, type: 3}
   _mainDocument: {fileID: 1737498677}
   _miniMapDocument: {fileID: 1671269924}
-  leaderboard: {fileID: 534710373}
 --- !u!1 &1705274180
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,6 +4753,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agentManager: {fileID: 406248797}
+  myPickSO: {fileID: 11400000, guid: 190fb5da67694ab44b6bd8f4c3e83892, type: 2}
   spriteA: {fileID: 21300000, guid: 5ca25e984a709b9469e3039610df7eb3, type: 3}
   spriteB: {fileID: 21300000, guid: d6ab48bf116125945827cef74360e5b5, type: 3}
   spriteC: {fileID: 21300000, guid: c66d0b07615272c429dce3c0b22da25e, type: 3}
@@ -5193,4 +5147,3 @@ SceneRoots:
   - {fileID: 2058932862}
   - {fileID: 1160355628}
   - {fileID: 1683222629}
-  - {fileID: 534710374}

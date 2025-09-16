@@ -13,7 +13,9 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     [SerializeField] UnityEvent startEvent;
-
+    [SerializeField] AgentManager agentManager;
+    public MyPick myPickSO;
+    public static event Action<string> SessionClearEvent;
     public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
 
     VisualElement root, Main, myPick, AIPick, PopupWin, PopupLose, sample;
@@ -144,6 +146,10 @@ public class MainUI : MonoBehaviour
 
         label.text = obj.name;
 
+        myPickSO.pick = obj.name;
+        myPickSO.pickTexture = obj;
+
+
         StartCoroutine(RansdomPickByAI());
     }       
       
@@ -166,14 +172,24 @@ public class MainUI : MonoBehaviour
 
         var label = PopupWin.Q<Label>();
 
+        int index = 0;
+
+
+
+
         if (pick.text == ticket.Name) //ticket.Name)
         {
             label.text = "You won!";
+            //SessionClearEvent?.Invoke(index.ToString());
+           
+
         }
         else
         {
             label.text = "You lost!";
         }
+
+        SessionClearEvent?.Invoke(index.ToString());
 
         PopupWin.RemoveFromClassList("dot");
 
