@@ -32,13 +32,14 @@ namespace LootLocker
         void Start()
         {
            // StartCoroutine(DoLoginAndSetUp());
+
         }
 
         private void Update()
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                UploadScore("100");
+                UploadScore("101");
             }
         }
 

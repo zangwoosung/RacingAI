@@ -13,7 +13,9 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     [SerializeField] UnityEvent startEvent;
-
+    [SerializeField] AgentManager agentManager;
+    public MyPick myPickSO;
+    public static event Action<string> SessionClearEvent;
     public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
 
     VisualElement root, Main, myPick, AIPick, PopupWin, PopupLose, sample;
@@ -102,7 +104,7 @@ public class MainUI : MonoBehaviour
         };
         resetBtn.clicked += () => ResetPicks();
         listButton = new List<Button>();
-        listButton.Add(btn01);
+        listButton.Add(btn01);  // label, sprite
         listButton.Add(btn02);
         listButton.Add(btn03);
         listButton.Add(btn04);
@@ -140,12 +142,19 @@ public class MainUI : MonoBehaviour
         AIPick.style.backgroundImage = null; 
 
         myPick.style.backgroundImage = btn.style.backgroundImage;
+        
         Label label = myPick.Q<Label>();
+        
         SpriteRenderer spriteRenderer = new SpriteRenderer();
        
         var obj = btn.style.backgroundImage.value.texture;
 
         label.text = obj.name;
+        
+        //TODO.... 스크립터블 오브젝트에 담기.... 스크립터블오브젝 코드를 잘 이해하면 코드가 쉬워짐....  이게 없던 시절에는 코드가 10줄정도 더
+        myPickSO.pick = btn.style.backgroundImage.value.texture.name;
+        myPickSO.pickTexture = obj;
+
 
         StartCoroutine(RansdomPickByAI());
     }       
@@ -169,14 +178,24 @@ public class MainUI : MonoBehaviour
 
         var label = PopupWin.Q<Label>();
 
+        int index = 0;
+
+
+
+
         if (pick.text == ticket.Name) //ticket.Name)
         {
             label.text = "You won!";
+            //SessionClearEvent?.Invoke(index.ToString());
+           
+
         }
         else
         {
             label.text = "You lost!";
         }
+
+        SessionClearEvent?.Invoke(index.ToString());
 
         PopupWin.RemoveFromClassList("dot");
 
@@ -186,8 +205,11 @@ public class MainUI : MonoBehaviour
     IEnumerator RansdomPickByAI()
     {
         int aiPick = Random.Range(0, listButton.Count);
-        yield return new WaitForSeconds(3);
+
+        yield return new WaitForSeconds(2);
+
         AIPick.style.backgroundImage = listButton[aiPick].style.backgroundImage;
+        
         yield return new WaitForSeconds(1);
         resetBtn.SetEnabled(true);
         startBtn.SetEnabled(true);

@@ -2,8 +2,7 @@ using LootLocker.Requests;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.SocialPlatforms.Impl;
+
 using UnityEngine.UIElements;
 
 namespace LootLocker
@@ -30,8 +29,8 @@ namespace LootLocker
 
         public Label infoText;
 
-        public LeaderboardRacingAI leaderboard;
-        string leaderboardKey = "racingai";
+
+        string leaderboardKey = "myracingai";
 
         Toggle rememberMeToggle;
         int rememberMe;
@@ -39,21 +38,24 @@ namespace LootLocker
         public VisualElement root;
         public Button joinBtn, loginBtn, updateBtn, guestBtn;
         public Label label;
+
         private void Update()
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                UploadScore("50191");
+                root.AddToClassList("dot");
+                _mainDocument.rootVisualElement.visible = true;
+                _miniMapDocument.rootVisualElement.visible = true;
             }
         }
+
         public void UploadScore(string score)
         {
-            /*
-             * Get the players System language and send it as metadata
-             */
+           
             string metadata = Application.systemLanguage.ToString();
 
-            Debug.Log("metadata " + metadata);
+            Debug.Log("playerID " + playerID);
+            //147277  nothingise
             /*
              * Since this is a player leaderboard, member_id is not needed, 
              * the logged in user is the one that will upload the score.
@@ -63,8 +65,8 @@ namespace LootLocker
                 if (response.success)
                 {
                     //infoText = "Player score was submitted";
-                    Debug.Log("Player score was submitted");
-                    return; 
+                    Debug.Log("Player score was submitted" + score.ToString());
+                    return;
                 }
                 else
                 {
@@ -76,6 +78,8 @@ namespace LootLocker
         }
         private void Start()
         {
+
+            MainUI.SessionClearEvent += MainUI_SessionClearEvent;
             _mainDocument.rootVisualElement.visible = false;
             _miniMapDocument.rootVisualElement.visible = false;
 
@@ -94,7 +98,7 @@ namespace LootLocker
             loginBtn.AddToClassList("button");
             updateBtn.AddToClassList("button");
             guestBtn.AddToClassList("button");
-                
+
 
 
             loginInformationText = root.Q<Label>("loginInformationText");
@@ -121,12 +125,12 @@ namespace LootLocker
 
             guestBtn.clicked += () =>
             {
-             StartCoroutine(DoGuestLogin());
-              
+                StartCoroutine(DoGuestLogin());
+
 
             };
 
-           
+
             // See if we should log in the player automatically
             rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
             if (rememberMe == 0)
@@ -143,12 +147,18 @@ namespace LootLocker
             });
 
         }
+
+        private void MainUI_SessionClearEvent(string ranking)
+        {
+           // UploadScore(ranking);
+        }
+
         public void ToggleRememberMe()
         {
             bool rememberMeBool = rememberMeToggle.value;
             rememberMe = Convert.ToInt32(rememberMeBool);
 
-           
+
             PlayerPrefs.SetInt("rememberMe", rememberMe);
         }
         IEnumerator DoGuestLogin()
@@ -168,14 +178,12 @@ namespace LootLocker
             {
                 if (response.success)
                 {
-                   
+
                     loginInformationText.text = "Guest session started";
                     playerIdText.text = "Player ID:" + response.player_id.ToString();
+                    playerID = response.player_id.ToString();
 
-                    //SceneManager.LoadScene("SAHARA");
-                    root.visible = false;
-                    //root.Q<VisualElement>("bg").visible = false;  
-                    leaderboard.UploadScore("800");
+                    root.AddToClassList("dot");
                     _mainDocument.rootVisualElement.visible = true;
                     _miniMapDocument.rootVisualElement.visible = true;
 
@@ -213,7 +221,7 @@ namespace LootLocker
 
         }
         // Called when pressing "Log in"
-        string playerID = string.Empty; 
+        string playerID = string.Empty;
         public void Login()
         {
             string email = existingUserEmailInputField.text;
@@ -232,9 +240,13 @@ namespace LootLocker
                 {
                     playerID = loginResponse.ID.ToString();
 
-                    Debug.Log("loginResponse.ID  " + loginResponse.ID); 
-                   // leaderboard.UploadScore("800");
+                    Debug.Log("loginResponse.ID  " + loginResponse.ID);
+                    // leaderboard.UploadScore("800");
                     infoText.text = "Player was logged in succesfully";
+
+                    root.AddToClassList("dot");
+                    _mainDocument.rootVisualElement.visible = true;
+                    _miniMapDocument.rootVisualElement.visible = true;
                 }
 
                 // Is the account verified?
@@ -290,7 +302,7 @@ namespace LootLocker
                 {
                     // Succesful response  
                     infoText.text = "Account created";
-                    root.visible=false; 
+                    root.visible = false;
                 }
             });
         }

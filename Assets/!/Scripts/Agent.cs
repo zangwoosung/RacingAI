@@ -37,6 +37,7 @@ public class Agent : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         originalPos = transform.position;
+
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
         root = _UIDocument.rootVisualElement;
@@ -81,7 +82,9 @@ public class Agent : MonoBehaviour
         {
             destination = Vector3.zero;
             elapsedTime = Time.time - startTime;
+
             RankingAction(new Ticket(elapsedTime, spriteRenderer.sprite.name));
+
             navAgent.Warp(originalPos);
             foot.text = elapsedTime.ToString();
         }
