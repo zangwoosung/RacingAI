@@ -11,23 +11,48 @@ using Sprite = UnityEngine.Sprite;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] UIDocument _UIDocument;
+    [SerializeField] UIDocument _mainUI;
+    [Header("Ranking")]
+    [SerializeField] UIDocument _rankingUI;
+    [SerializeField] RankingAgents _rankingAgents;
+
     [SerializeField] UnityEvent startEvent;
     [SerializeField] AgentManager agentManager;
     public MyPick myPickSO;
     public static event Action<string> SessionClearEvent;
     public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
 
-    VisualElement root, Main, myPick, AIPick, PopupWin, PopupLose, sample;
+    VisualElement root, rankingRoot, Main, myPick, AIPick, PopupWin, PopupLose, sample;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     List<Button> listButton;
     Sprite sprite;
     Texture2D texture;
     Dictionary<string, Sprite> SpriteDict = new Dictionary<string, Sprite>();
+   public  List<MyData> myDataList;
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            ShowRaning(myDataList);
+        }
+    }   
+
+    public void Setup(List<MyData> obj)
+    {
+        myDataList = obj;
+    }
+    public void ShowRaning(List<MyData> obj )
+    {
+        root.visible = false; ;
+        rankingRoot.visible = true;
+        _rankingAgents.ShowRanking(obj);   
+    }
     void Start()
     {
         sprite = spriteA;
-        root = _UIDocument.rootVisualElement;
+        root = _mainUI.rootVisualElement;
+        rankingRoot = _rankingUI.rootVisualElement;
+        rankingRoot.visible = false;
 
         root.AddToClassList("default");
         btn01 = root.Q<Button>("btn01");

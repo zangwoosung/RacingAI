@@ -8,10 +8,13 @@ public struct Ticket
 {
     public float ElapsedTime;
     public string Name;
-    public Ticket(float r, string name)
+    public Sprite AgentSprite;
+    public Ticket(string name, float time, Sprite sp)
     {
-        this.ElapsedTime = r;
         this.Name = name;
+        this.ElapsedTime = time;
+        this.AgentSprite = sp;  
+
     }
 }
 
@@ -80,7 +83,7 @@ public class Agent : MonoBehaviour
         {
             destination = Vector3.zero;
             elapsedTime = Time.time - startTime;
-            RankingAction(new Ticket(elapsedTime, spriteRenderer.sprite.name));
+            RankingAction(new Ticket(spriteRenderer.sprite.name, elapsedTime,  spriteRenderer.sprite));
             navAgent.Warp(originalPos);
             foot.text = elapsedTime.ToString();
         }
