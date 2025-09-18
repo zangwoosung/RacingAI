@@ -1,0 +1,20 @@
+{
+    "asset": "b88d90abef2eb77499c55cb802c94b33",
+    "fileName": "01995a8b-f832-7891-b37a-89d2609a2464.png",
+    "prompt": "simple bear",
+    "negativePrompt": "",
+    "model": "186d3549-08b7-44a2-a283-dd9967f49c87",
+    "modelName": "Cel-shaded",
+    "customSeed": -1,
+    "w3CTraceId": "1cc8374600de73b5e895319287040958",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}
