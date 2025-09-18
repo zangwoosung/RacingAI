@@ -43,7 +43,13 @@ public class RankingAgents : MonoBehaviour
             name = "title",
             title = "Title",
             width = 150,
-            makeCell = () => new Label(),
+            makeCell = () =>
+            {
+                var label = new Label();
+                label.style.fontSize = 30; // Set your desired font size here
+                return label;
+            },
+
             bindCell = (element, index) =>
             {
                 (element as Label).text = myDataList[index].Name;
@@ -79,6 +85,8 @@ public class RankingAgents : MonoBehaviour
 
         listView.itemsSource = myDataList;
 
+        listView.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
+        listView.fixedItemHeight = 130;
         //// Name column
         //listView.columns[0].makeCell = () => new Label();
         //listView.columns[0].bindCell = (element, index) =>
