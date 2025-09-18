@@ -8,10 +8,13 @@ public struct Ticket
 {
     public float ElapsedTime;
     public string Name;
-    public Ticket(float r, string name)
+    public Sprite AgentSprite;
+    public Ticket(string name, float time, Sprite sp)
     {
-        this.ElapsedTime = r;
         this.Name = name;
+        this.ElapsedTime = time;
+        this.AgentSprite = sp;  
+
     }
 }
 
@@ -24,7 +27,6 @@ public class Agent : MonoBehaviour
     SpriteRenderer spriteRenderer;
     float startTime;
     float elapsedTime;
-
     [Header("WorldSpaceUI")]
     [SerializeField] UIDocument _UIDocument;
     VisualElement root;
@@ -37,14 +39,13 @@ public class Agent : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         originalPos = transform.position;
-
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
         root = _UIDocument.rootVisualElement;
+
+
         head = root.Q<Label>("head");
         body = root.Q<Label>("body");
         foot = root.Q<Label>("foot");
-        
         head.text = spriteRenderer.sprite.name;
     }
 
@@ -82,9 +83,7 @@ public class Agent : MonoBehaviour
         {
             destination = Vector3.zero;
             elapsedTime = Time.time - startTime;
-
-            RankingAction(new Ticket(elapsedTime, spriteRenderer.sprite.name));
-
+            RankingAction(new Ticket(spriteRenderer.sprite.name, elapsedTime,  spriteRenderer.sprite));
             navAgent.Warp(originalPos);
             foot.text = elapsedTime.ToString();
         }

@@ -11,26 +11,48 @@ using Sprite = UnityEngine.Sprite;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] UIDocument _UIDocument;
+    [SerializeField] UIDocument _mainUI;
+    [Header("Ranking")]
+    [SerializeField] UIDocument _rankingUI;
+    [SerializeField] RankingAgents _rankingAgents;
+
     [SerializeField] UnityEvent startEvent;
     [SerializeField] AgentManager agentManager;
     public MyPick myPickSO;
     public static event Action<string> SessionClearEvent;
     public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
 
-    VisualElement root, Main, myPick, AIPick, PopupWin, PopupLose, sample;
+    VisualElement root, rankingRoot, Main, myPick, AIPick, PopupWin, PopupLose, sample;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     List<Button> listButton;
     Sprite sprite;
     Texture2D texture;
-
-
     Dictionary<string, Sprite> SpriteDict = new Dictionary<string, Sprite>();
+   public  List<MyData> myDataList;
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            ShowRaning(myDataList);
+        }
+    }   
 
+    public void Setup(List<MyData> obj)
+    {
+        myDataList = obj;
+    }
+    public void ShowRaning(List<MyData> obj )
+    {
+        root.visible = false; ;
+        rankingRoot.visible = true;
+        _rankingAgents.ShowRanking(obj);   
+    }
     void Start()
     {
         sprite = spriteA;
-        root = _UIDocument.rootVisualElement;
+        root = _mainUI.rootVisualElement;
+        rankingRoot = _rankingUI.rootVisualElement;
+        rankingRoot.visible = false;
 
         root.AddToClassList("default");
         btn01 = root.Q<Button>("btn01");
@@ -104,7 +126,7 @@ public class MainUI : MonoBehaviour
         };
         resetBtn.clicked += () => ResetPicks();
         listButton = new List<Button>();
-        listButton.Add(btn01);  // label, sprite
+        listButton.Add(btn01);
         listButton.Add(btn02);
         listButton.Add(btn03);
         listButton.Add(btn04);
@@ -142,17 +164,14 @@ public class MainUI : MonoBehaviour
         AIPick.style.backgroundImage = null; 
 
         myPick.style.backgroundImage = btn.style.backgroundImage;
-        
         Label label = myPick.Q<Label>();
-        
         SpriteRenderer spriteRenderer = new SpriteRenderer();
        
         var obj = btn.style.backgroundImage.value.texture;
 
         label.text = obj.name;
-        
-        //TODO.... 스크립터블 오브젝트에 담기.... 스크립터블오브젝 코드를 잘 이해하면 코드가 쉬워짐....  이게 없던 시절에는 코드가 10줄정도 더
-        myPickSO.pick = btn.style.backgroundImage.value.texture.name;
+
+        myPickSO.pick = obj.name;
         myPickSO.pickTexture = obj;
 
 
@@ -205,11 +224,8 @@ public class MainUI : MonoBehaviour
     IEnumerator RansdomPickByAI()
     {
         int aiPick = Random.Range(0, listButton.Count);
-
-        yield return new WaitForSeconds(2);
-
+        yield return new WaitForSeconds(3);
         AIPick.style.backgroundImage = listButton[aiPick].style.backgroundImage;
-        
         yield return new WaitForSeconds(1);
         resetBtn.SetEnabled(true);
         startBtn.SetEnabled(true);
