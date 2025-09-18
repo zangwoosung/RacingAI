@@ -1,0 +1,20 @@
+{
+    "asset": "018c567f0a079b64ab889ad50b6f0468",
+    "fileName": "01995a88-6469-7287-a938-55b9826219d1.png",
+    "prompt": "simple tiger",
+    "negativePrompt": "",
+    "model": "186d3549-08b7-44a2-a283-dd9967f49c87",
+    "modelName": "Cel-shaded",
+    "customSeed": -1,
+    "w3CTraceId": "051ea6ea46c9698d554346f29c0abdeb",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}
