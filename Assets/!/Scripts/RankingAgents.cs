@@ -23,19 +23,18 @@ public class RankingAgents : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     VisualElement rootVisualElement;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    MultiColumnListView listView;
+    private void Start()
     {
-        List<MyData> myDataList = new List<MyData>
-{
-    new MyData("Sword", "1", Resources.Load<Sprite>("Icons/bear1")),
-    new MyData("Shield", "1",Resources.Load<Sprite>("Icons/bear1")),
-    new MyData("Potion", "1",Resources.Load<Sprite>("Icons/bear1"))
-};
-
-
         rootVisualElement = _UIDocument.rootVisualElement;
-        var listView = rootVisualElement.Q<MultiColumnListView>();
+        listView = rootVisualElement.Q<MultiColumnListView>();
+    }
+    public void ShowRanking(List<MyData> data)
+    {
+        List<MyData> myDataList = data;
+
+        Debug.Log("myDataList.count " + myDataList.Count);
 
         // Column 1: Title
         listView.columns.Add(new Column
@@ -43,13 +42,7 @@ public class RankingAgents : MonoBehaviour
             name = "title",
             title = "Title",
             width = 150,
-            makeCell = () =>
-            {
-                var label = new Label();
-                label.style.fontSize = 30; // Set your desired font size here
-                return label;
-            },
-
+            makeCell = () => new Label(),
             bindCell = (element, index) =>
             {
                 (element as Label).text = myDataList[index].Name;
@@ -83,31 +76,7 @@ public class RankingAgents : MonoBehaviour
             }
         });
 
-        listView.itemsSource = myDataList;
+        listView.itemsSource = myDataList;      
 
-        listView.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
-        listView.fixedItemHeight = 130;
-        //// Name column
-        //listView.columns[0].makeCell = () => new Label();
-        //listView.columns[0].bindCell = (element, index) =>
-        //{
-        //    (element as Label).text = myDataList[index].Name;
-        //};
-
-        //// Icon column
-        //listView.columns[1].makeCell = () => new Image();
-        //listView.columns[1].bindCell = (element, index) =>
-        //{
-        //    (element as Image).image = myDataList[index].Icon.texture;
-        //};
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 }

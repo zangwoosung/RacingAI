@@ -1,5 +1,6 @@
 using LootLocker;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -13,6 +14,8 @@ public class AgentManager : MonoBehaviour
     public WhiteLabelLoginTool leaderboardRacingAI;
     public Agent[] agents;
     public MyPick myPickSO;
+    public MainUI mainUI;
+    // public AgentsSO agentsSO;
     public Queue agentQueue = new Queue();
     Queue spriteQueue = new Queue();
     bool hasStarted = false;
@@ -80,21 +83,26 @@ public class AgentManager : MonoBehaviour
         Debug.Log("모두 골인 ");
         AllAgentUnityEvent?.Invoke(firstTicket, firstSprite);
 
+
+        List<MyData> DataList = new List<MyData>();   
         // 순위 추출 하기. 
         int index = 0;
         foreach (Ticket tempTicket in agentQueue)
         {
+            Debug.Log(tempTicket.AgentSprite.name);
+            
             Debug.Log("tempTicket.Name " + tempTicket.Name);
             if (myPickSO.pick == tempTicket.Name)
             {
                 myPickSO.rank = index;
                 Debug.Log("your picke came at " + index);
                 leaderboardRacingAI.UploadScore(index.ToString());
-                break;
+                //break;
             }
             index++;
+            DataList.Add(new MyData(tempTicket.Name, tempTicket.ElapsedTime.ToString("F2"), tempTicket.AgentSprite));
         }
-
+        mainUI.Setup(DataList);
         agentQueue.Clear();
         spriteQueue.Clear();
         hasStarted = false;
