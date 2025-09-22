@@ -1,11 +1,49 @@
+using System;
 using UnityEngine;
 
 public class Engagement : MonoBehaviour
 {
+
     public GameObject bulletPrefab;
-    public Transform firePoint; // Where the bullet spawns
+    public Transform firePoint;
     public Transform fireTarget;
     public float bulletSpeed = 20f;
+    public Transform player;
+    public float rotationSpeed = 5f;
+
+    void Start()
+    {
+        if (player == null)
+        {
+            player = this.transform;
+        }
+    }
+
+    void RotateTowardsTarget(Transform player, Transform target, float rotationSpeed)
+    {
+        Vector3 direction = (target.position - player.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        player.rotation = Quaternion.Slerp(player.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+
+    Transform FindNearestTarget(Transform player)
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Agent");
+        Transform nearestTarget = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject target in targets)
+        {
+            float distance = Vector3.Distance(player.position, target.transform.position);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestTarget = target.transform;
+            }
+        }
+
+        return nearestTarget;
+    }
 
     public void FireAtPoint(Vector3 targetPoint)
     {
@@ -14,15 +52,22 @@ public class Engagement : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = direction * bulletSpeed;
-        Destroy(bullet, 1f); 
+        //OnFireAtPoint.Invoke();
+        Destroy(bullet, 1f);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left click
-        {
-            FireAtPoint(fireTarget.position);
+        Transform nearestTarget = FindNearestTarget(player);
 
+        if (nearestTarget != null)
+        {
+            if (Input.GetMouseButtonDown(0)) // Left click
+            {
+                RotateTowardsTarget(player, nearestTarget, rotationSpeed);
+                FireAtPoint(nearestTarget.transform.position);
+
+            }
         }
     }
 

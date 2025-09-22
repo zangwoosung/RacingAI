@@ -7,7 +7,6 @@ using System;
 
 namespace LootLocker
 {
-
     public class PlayerTypeLeaderboard : MonoBehaviour
     {
         public InputField scoreInputField;
@@ -16,14 +15,12 @@ namespace LootLocker
         public Text leaderboardTop10Text;
         public Text leaderboardCenteredText;
 
-        public string myscore="111";
-
         /*
         * leaderboardKey or leaderboardID can be used.
         * leaderboardKey can be the same between stage and live /development mode on/off.
         * So if you use the key instead of the ID, you don't need to change any code when switching development_mode.
         */
-        string leaderboardKey = "racingai";
+        string leaderboardKey = "playerLeaderboard";
         // int leaderboardID = 4705;
 
         string memberID;
@@ -31,15 +28,7 @@ namespace LootLocker
         // Start is called before the first frame update
         void Start()
         {
-           StartCoroutine(DoLoginAndSetUp());
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                UploadScore(myscore);
-            }
+            StartCoroutine(DoLoginAndSetUp());
         }
 
         IEnumerator DoLoginAndSetUp()
@@ -67,8 +56,8 @@ namespace LootLocker
                     infoText.text = "Guest session started";
                     playerIDText.text = "Player ID:" + response.player_id.ToString();
                     memberID = response.player_id.ToString();
-                   //UpdateLeaderboardTop10();
-                   // UpdateLeaderboardCentered();
+                    UpdateLeaderboardTop10();
+                    UpdateLeaderboardCentered();
                 }
                 else
                 {
@@ -77,7 +66,7 @@ namespace LootLocker
             });
         }
 
-        public void UploadScore(string score="90")
+        public void UploadScore()
         {
             /*
              * Get the players System language and send it as metadata
@@ -88,7 +77,7 @@ namespace LootLocker
              * Since this is a player leaderboard, member_id is not needed, 
              * the logged in user is the one that will upload the score.
              */
-            LootLockerSDKManager.SubmitScore("", int.Parse(myscore), leaderboardKey, metadata, (response) =>
+            LootLockerSDKManager.SubmitScore("", int.Parse(scoreInputField.text), leaderboardKey, metadata, (response) =>
             {
                 if (response.success)
                 {

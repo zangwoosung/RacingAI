@@ -11,17 +11,14 @@ public class EffectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        Bullet.OnHitContactEvent += OnHitContactEvent;
     }
 
-    private void ProjectileLauncher_OnContactEvent(Vector3 obj)
-    {
-        OnHitContactEvent(obj);
-    }
+    
 
     public  void OnHitContactEvent(Vector3 pos)
     {
-
+        Debug.Log("EffectManager OnHitContactEvent " + pos);    
         GameObject psInstance = Instantiate(particlePrefab, pos, Quaternion.identity);
         ParticleSystem ps = psInstance.GetComponent<ParticleSystem>();
         ps.Play();

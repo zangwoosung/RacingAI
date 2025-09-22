@@ -1,0 +1,21 @@
+/* Buttons */
+.button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-size: var(--font-size);
+    padding: 8px 12px;
+    border-radius: 4px;  
+    unity-font-style: bold;
+    unity-text-align: middle-center;  
+    max-width: 100%;
+    max-height: 100%;     
+    transition-property: scale, background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    scale: 1 1;
+}
+.button:hover {    
+    background-color: #6BAAF0;
+    scale: 1.08 1.08;
+    cursor: pointer;
+}

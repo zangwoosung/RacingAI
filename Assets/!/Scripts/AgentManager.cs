@@ -96,7 +96,7 @@ public class AgentManager : MonoBehaviour
             {
                 myPickSO.rank = index;
                 Debug.Log("your picke came at " + index);
-                leaderboardRacingAI.UploadScore(index.ToString());
+                //leaderboardRacingAI.UploadScore(index.ToString());
                 //break;
             }
             index++;

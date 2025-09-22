@@ -1,27 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LootLocker.Requests;
 using UnityEngine.UI;
-using System;
+using LootLocker.Requests;
 
 namespace LootLocker {
-public class GenericTypeLeaderboard : MonoBehaviour
+public class FloatLeaderboard : MonoBehaviour
 {
     public InputField scoreInputField;
-    public InputField playerNameInputField;
     public Text infoText;
     public Text playerIDText;
     public Text leaderboardTop10Text;
     public Text leaderboardCenteredText;
+
+    public static int AmountToDivideBy = 10000;
 
     /*
     * leaderboardKey or leaderboardID can be used.
     * leaderboardKey can be the same between stage and live /development mode on/off.
     * So if you use the key instead of the ID, you don't need to change any code when switching development_mode.
     */
-    string leaderboardKey = "genericLeaderboard";
-    // int leaderboardID = 4705;
+    string leaderboardKey = "floatLeaderboard";
+    // int leaderboardID = 4718;
 
     string memberID;
 
@@ -57,7 +57,7 @@ public class GenericTypeLeaderboard : MonoBehaviour
                 playerIDText.text = "Player ID:" + response.player_id.ToString();
                 memberID = response.player_id.ToString();
                 UpdateLeaderboardTop10();
-                //UpdateLeaderboardCentered();
+                UpdateLeaderboardCentered();
             }
             else
             {
@@ -73,16 +73,16 @@ public class GenericTypeLeaderboard : MonoBehaviour
          */
         string metadata = Application.systemLanguage.ToString();
 
-            Debug.Log("metadata" + metadata);
-
         /*
-         * Generic leaderboard, 
-         * metadata is used for the name and a unique identifier tied to the memberID
-         * is used for a player to upload as many scores as they want with any name they want
-         * ensuring that every new score gets its' own post on the leaderboard.
+         * Since this is a player leaderboard, member_id is not needed, 
+         * the logged in user is the one that will upload the score.
          */
-        string infiniteScores = memberID + GetAndIncrementScoreCharacters();
-        LootLockerSDKManager.SubmitScore(infiniteScores, int.Parse(scoreInputField.text), leaderboardKey, playerNameInputField.text, (response) =>
+        // Not working, fix!
+        float floatScore = float.Parse(scoreInputField.text);
+        floatScore *= AmountToDivideBy;
+        string formattedString = Mathf.FloorToInt(floatScore).ToString();
+
+        LootLockerSDKManager.SubmitScore("", int.Parse(formattedString), leaderboardKey, metadata, (response) =>
         {
             if (response.success)
             {
@@ -90,7 +90,7 @@ public class GenericTypeLeaderboard : MonoBehaviour
                 /*
                  * Update the leaderboards when the new score was sent so we can see them
                  */
-                UpdateLeaderboardCentered(infiniteScores);
+                UpdateLeaderboardCentered();
                 UpdateLeaderboardTop10();
             }
             else
@@ -99,7 +99,7 @@ public class GenericTypeLeaderboard : MonoBehaviour
             }
         });
     }
-    void UpdateLeaderboardCentered(string memberID)
+    void UpdateLeaderboardCentered()
     {
         LootLockerSDKManager.GetMemberRank(leaderboardKey, memberID, (memberResponse) =>
         {
@@ -141,10 +141,10 @@ public class GenericTypeLeaderboard : MonoBehaviour
                             }
 
                             leaderboardText += currentEntry.rank + ".";
-                            leaderboardText += currentEntry.metadata;
+                            leaderboardText += currentEntry.player.id;
                             leaderboardText += " - ";
-                            leaderboardText += currentEntry.score;
-                            leaderboardText += "\n";
+                            float dividedScore = (float)currentEntry.score / AmountToDivideBy;
+                            leaderboardText += dividedScore.ToString("F4");
 
                             /*
                             * End highlighting the player
@@ -187,9 +187,10 @@ public class GenericTypeLeaderboard : MonoBehaviour
                 {
                     LootLockerLeaderboardMember currentEntry = response.items[i];
                     leaderboardText += currentEntry.rank + ".";
-                    leaderboardText += currentEntry.metadata;
+                    leaderboardText += currentEntry.player.id;
                     leaderboardText += " - ";
-                    leaderboardText += currentEntry.score;
+                    float dividedScore = (float)currentEntry.score / AmountToDivideBy;
+                    leaderboardText += dividedScore.ToString("F4");
                     leaderboardText += "\n";
                 }
                 leaderboardTop10Text.text = leaderboardText;
@@ -199,46 +200,6 @@ public class GenericTypeLeaderboard : MonoBehaviour
                 infoText.text = "Error updating Top 10 leaderboard";
             }
         });
-    }
-
-    // Increment and save a string that goes from a to z, then za to zz, zza to zzz etc.
-    string GetAndIncrementScoreCharacters()
-    {
-        // Get the current score string
-        string incrementalScoreString = PlayerPrefs.GetString(nameof(incrementalScoreString), "a");
-
-        // Get the current character
-        char incrementalCharacter = PlayerPrefs.GetString(nameof(incrementalCharacter), "a")[0];
-
-        // If the previous character we added was 'z', add one more character to the string
-        // Otherwise, replace last character of the string with the current incrementalCharacter
-        if (incrementalScoreString[incrementalScoreString.Length - 1] == 'z')
-        {
-            // Add one more character
-            incrementalScoreString += incrementalCharacter;
-        }
-        else
-        {
-            // Replace character
-            incrementalScoreString = incrementalScoreString.Substring(0, incrementalScoreString.Length - 1) + incrementalCharacter.ToString();
-        }
-
-        // If the letter int is lower than 'z' add to it otherwise start from 'a' again
-        if ((int)incrementalCharacter < 122)
-        {
-            incrementalCharacter++;
-        }
-        else
-        {
-            incrementalCharacter = 'a';
-        }
-
-        // Save the current incremental values to PlayerPrefs
-        PlayerPrefs.SetString(nameof(incrementalCharacter), incrementalCharacter.ToString());
-        PlayerPrefs.SetString(nameof(incrementalScoreString), incrementalScoreString.ToString());
-
-        // Return the updated string
-        return incrementalScoreString;
     }
 }
 }
