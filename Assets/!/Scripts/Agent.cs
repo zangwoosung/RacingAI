@@ -13,7 +13,7 @@ public struct Ticket
     {
         this.Name = name;
         this.ElapsedTime = time;
-        this.AgentSprite = sp;  
+        this.AgentSprite = sp;
 
     }
 }
@@ -39,11 +39,12 @@ public class Agent : MonoBehaviour
     public int Speed
     {
         get { return speed; }
-        set { 
-            
-            speed = value;        
-         body.text = speed.ToString();
-         Debug.Log("Agent Speed set to " + speed);  
+        set
+        {
+
+            speed = value;
+            body.text = speed.ToString();
+            Debug.Log("Agent Speed set to " + speed);
         }
     }
 
@@ -51,7 +52,7 @@ public class Agent : MonoBehaviour
 
     void Awake()
     {
-        
+
         navAgent = GetComponent<NavMeshAgent>();
         originalPos = transform.position;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -69,7 +70,7 @@ public class Agent : MonoBehaviour
     public void Setup(float speed, Vector3 des)
     {
         body.text = speed.ToString();
-        this.Speed = (int)speed; 
+        this.Speed = (int)speed;
         startTime = Time.time;
         elapsedTime = 0;
         navAgent.speed = speed;
@@ -101,9 +102,10 @@ public class Agent : MonoBehaviour
         {
             destination = Vector3.zero;
             elapsedTime = Time.time - startTime;
-            RankingAction(new Ticket(spriteRenderer.sprite.name, elapsedTime,  spriteRenderer.sprite));
+            RankingAction(new Ticket(spriteRenderer.sprite.name, elapsedTime, spriteRenderer.sprite));
             navAgent.Warp(originalPos);
             foot.text = elapsedTime.ToString();
+
         }
         else
         {
