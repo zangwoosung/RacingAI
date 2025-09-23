@@ -34,9 +34,26 @@ public class Agent : MonoBehaviour
     Label body;
     Label foot;
 
+    #region  프러퍼티   
+    private int speed;
 
-    void Start()
+    public int Speed
     {
+        get { return speed; }
+        set { 
+            
+         speed = value;        
+         body.text = speed.ToString();
+            //0 == die
+            //
+        }
+    }
+
+    #endregion
+
+    void Awake()
+    {
+        
         navAgent = GetComponent<NavMeshAgent>();
         originalPos = transform.position;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -47,11 +64,14 @@ public class Agent : MonoBehaviour
         body = root.Q<Label>("body");
         foot = root.Q<Label>("foot");
         head.text = spriteRenderer.sprite.name;
+
+        Speed = (int)10;
     }
 
     public void Setup(float speed, Vector3 des)
     {
         body.text = speed.ToString();
+        this.Speed = (int)speed; 
         startTime = Time.time;
         elapsedTime = 0;
         navAgent.speed = speed;

@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "59ba2ef3dcaecbb7002d5b6baf778bc754489540"
+      "hash": "5b1de5a133c2b295a578c4fe68bac12cc56d141d"
     },
     "com.unity.2d.common": {
       "version": "11.0.1",

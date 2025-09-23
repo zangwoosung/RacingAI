@@ -25,8 +25,9 @@ public class WhiteLabelLogin : MonoBehaviour
     // Called when pressing "Log in"
     public void Login()
     {
-        string email = existingUserEmailInputField.text;
-        string password = existingUserPasswordInputField.text;
+            string email = "nothingisez@naver.com";// existingUserEmailInputField.text;
+
+            string password = "jacksparrow";// existingUserPasswordInputField.text;
         LootLockerSDKManager.WhiteLabelLogin(email, password, false, loginResponse =>
         {
             if (!loginResponse.success)

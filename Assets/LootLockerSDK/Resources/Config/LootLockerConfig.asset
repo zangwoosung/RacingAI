@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182cd195a28310e479cddf7ff82822f8, type: 3}
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: lootlocker.lootlockersdk.runtime::LootLocker.LootLockerConfig
-  apiKey: 
+  apiKey: dev_68013677c9be49fb86bda9f4df23bbb7
   adminToken: 
   token: 
   refreshToken: 
-  domainKey: 
-  game_version: 1.0.0.0
-  sdk_version: 
-  deviceID: defaultPlayerId
+  domainKey: itfcoqvh
+  game_version: 0.0.0.1
+  sdk_version: 6.0.0
+  deviceID: 
   playerULID: 
   url: https://api.lootlocker.com/v1
-  adminUrl: https://api.lootlocker.com/admin
-  playerUrl: https://api.lootlocker.com/player
-  userUrl: https://api.lootlocker.com/game
-  baseUrl: https://api.lootlocker.com
+  adminUrl: https://itfcoqvh.api.lootlocker.com/admin
+  playerUrl: https://itfcoqvh.api.lootlocker.com/player
+  userUrl: https://itfcoqvh.api.lootlocker.com/game
+  baseUrl: https://itfcoqvh.api.lootlocker.com
   clientSideRequestTimeOut: 180
   currentDebugLevel: 0
   logLevel: 2
   logErrorsAsWarnings: 0
   logInBuilds: 0
-  allowTokenRefresh: 1
+  allowTokenRefresh: 0

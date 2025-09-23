@@ -1,27 +1,19 @@
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class EffectManager : MonoBehaviour
-{
-   
-    public GameObject particlePrefab; // Assign your prefab in Inspector
-    public GameObject firefab; // Assign your prefab in Inspector
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+{   
+    public GameObject particlePrefab; 
+    public GameObject firefab; 
+       
     void Start()
     {
-       
-    }
-
-    private void ProjectileLauncher_OnContactEvent(Vector3 obj)
-    {
-        OnHitContactEvent(obj);
-    }
+        Bullet.OnHitContactEvent += OnHitContactEvent;
+    }    
 
     public  void OnHitContactEvent(Vector3 pos)
     {
-
+    
         GameObject psInstance = Instantiate(particlePrefab, pos, Quaternion.identity);
         ParticleSystem ps = psInstance.GetComponent<ParticleSystem>();
         ps.Play();
@@ -29,14 +21,12 @@ public class EffectManager : MonoBehaviour
         Destroy(psInstance, ps.main.duration + ps.main.startLifetime.constant);
     }
 
-    public void OnHitDistanceEvent(Transform obj, float degree)
+    private void OnDisable()
     {
+        Bullet.OnHitContactEvent -= OnHitContactEvent;        
+    }
 
-    }
-    public void SpawnParticles(Vector3 position)
-    {
-        // Optional cleanup
-    }
+    
 }
 
 

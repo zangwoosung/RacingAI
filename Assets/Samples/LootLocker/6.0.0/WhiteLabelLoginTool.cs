@@ -2,8 +2,10 @@ using LootLocker.Requests;
 using System;
 using System.Collections;
 using UnityEngine;
-
 using UnityEngine.UIElements;
+
+
+
 
 namespace LootLocker
 {
@@ -12,11 +14,7 @@ namespace LootLocker
 
         public UIDocument _document;
         public StyleSheet _styleSheet;
-
-        [Header("Mainui ")]
-        public UIDocument _mainDocument;
-        public UIDocument _miniMapDocument;
-
+       
         [Header("New User")]
         public TextField newUserEmailInputField;
         public TextField newUserPasswordInputField;
@@ -26,62 +24,19 @@ namespace LootLocker
         public TextField existingUserPasswordInputField;
 
         public Label loginInformationText, playerIdText;
-
         public Label infoText;
-
-
-        string leaderboardKey = "myracingai";
-
+        
+        //viewManager.OpenNewView(PageName.Main);
         Toggle rememberMeToggle;
         int rememberMe;
-
+        //  ViewManager helper = new global::HelperClass();
+        
         public VisualElement root;
         public Button joinBtn, loginBtn, updateBtn, guestBtn;
         public Label label;
-
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                root.AddToClassList("dot");
-                _mainDocument.rootVisualElement.visible = true;
-                _miniMapDocument.rootVisualElement.visible = true;
-            }
-        }
-
-        public void UploadScore(string score)
-        {
-           
-            string metadata = Application.systemLanguage.ToString();
-
-            Debug.Log("playerID " + playerID);
-            //147277  nothingise
-            /*
-             * Since this is a player leaderboard, member_id is not needed, 
-             * the logged in user is the one that will upload the score.
-             */
-            LootLockerSDKManager.SubmitScore(playerID, int.Parse(score), leaderboardKey, metadata, (response) =>
-            {
-                if (response.success)
-                {
-                    //infoText = "Player score was submitted";
-                    Debug.Log("Player score was submitted" + score.ToString());
-                    return;
-                }
-                else
-                {
-                    //infoText = "Error submitting score:" + response.errorData.message;
-                    Debug.Log("error Player score was submitted" + response.errorData.message);
-                    return;
-                }
-            });
-        }
         private void Start()
         {
-
-            MainUI.SessionClearEvent += MainUI_SessionClearEvent;
-            _mainDocument.rootVisualElement.visible = false;
-            _miniMapDocument.rootVisualElement.visible = false;
+            
 
             root = _document.rootVisualElement;
             root.styleSheets.Add(_styleSheet);
@@ -98,7 +53,7 @@ namespace LootLocker
             loginBtn.AddToClassList("button");
             updateBtn.AddToClassList("button");
             guestBtn.AddToClassList("button");
-
+                
 
 
             loginInformationText = root.Q<Label>("loginInformationText");
@@ -125,12 +80,12 @@ namespace LootLocker
 
             guestBtn.clicked += () =>
             {
-                StartCoroutine(DoGuestLogin());
-
+             StartCoroutine(DoGuestLogin());
+              
 
             };
 
-
+           
             // See if we should log in the player automatically
             rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
             if (rememberMe == 0)
@@ -147,18 +102,12 @@ namespace LootLocker
             });
 
         }
-
-        private void MainUI_SessionClearEvent(string ranking)
-        {
-           // UploadScore(ranking);
-        }
-
         public void ToggleRememberMe()
         {
             bool rememberMeBool = rememberMeToggle.value;
             rememberMe = Convert.ToInt32(rememberMeBool);
 
-
+           
             PlayerPrefs.SetInt("rememberMe", rememberMe);
         }
         IEnumerator DoGuestLogin()
@@ -178,14 +127,11 @@ namespace LootLocker
             {
                 if (response.success)
                 {
-
                     loginInformationText.text = "Guest session started";
                     playerIdText.text = "Player ID:" + response.player_id.ToString();
-                    playerID = response.player_id.ToString();
 
-                    root.AddToClassList("dot");
-                    _mainDocument.rootVisualElement.visible = true;
-                    _miniMapDocument.rootVisualElement.visible = true;
+                    //SceneManager.LoadScene("SAHARA");
+                    root.visible = false;
 
                 }
                 else
@@ -221,7 +167,6 @@ namespace LootLocker
 
         }
         // Called when pressing "Log in"
-        string playerID = string.Empty;
         public void Login()
         {
             string email = existingUserEmailInputField.text;
@@ -230,23 +175,13 @@ namespace LootLocker
             {
                 if (!loginResponse.success)
                 {
-
-
                     // Error
                     infoText.text = "Error logging in:" + loginResponse.errorData.message;
                     return;
                 }
                 else
                 {
-                    playerID = loginResponse.ID.ToString();
-
-                    Debug.Log("loginResponse.ID  " + loginResponse.ID);
-                    // leaderboard.UploadScore("800");
                     infoText.text = "Player was logged in succesfully";
-
-                    root.AddToClassList("dot");
-                    _mainDocument.rootVisualElement.visible = true;
-                    _miniMapDocument.rootVisualElement.visible = true;
                 }
 
                 // Is the account verified?
@@ -267,6 +202,7 @@ namespace LootLocker
                         infoText.text = "Session started successfully";
 
                         root.visible = false;
+                        
                         //SceneManager.LoadScene("SAHARA");
                     }
                     else
@@ -302,7 +238,7 @@ namespace LootLocker
                 {
                     // Succesful response  
                     infoText.text = "Account created";
-                    root.visible = false;
+                    root.visible=false; 
                 }
             });
         }

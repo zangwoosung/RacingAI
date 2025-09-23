@@ -55,6 +55,9 @@ public class RankingAgents : MonoBehaviour
     {
         List<MyData> myDataList = data;
 
+        listView.itemsSource = null;
+        listView.RefreshItems();
+
         Debug.Log("myDataList.count " + myDataList.Count);
 
         // Column 1: Title
@@ -116,7 +119,8 @@ public class RankingAgents : MonoBehaviour
         listView.fixedItemHeight = 100; // height in pixels
         listView.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
 
-        listView.itemsSource = myDataList;      
+        listView.itemsSource = null;
+        listView.itemsSource =  myDataList;      
 
     }    
 }
