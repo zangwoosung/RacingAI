@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 // 에이전트가 다른 에이전트의 속도를 감속. 
 public class Engagement : MonoBehaviour 
@@ -36,6 +37,7 @@ public class Engagement : MonoBehaviour
     Transform FindNearestTarget(Transform player)
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Agent");
+        // Debug.Log("Found " + targets.Length + " targets.");
         Transform nearestTarget = null;
         float shortestDistance = Mathf.Infinity;
 
@@ -62,20 +64,40 @@ public class Engagement : MonoBehaviour
       
         Destroy(bullet, 1f);
     }
+    
+    public float detectionRadius = 50f;
 
     void Update()
     {
         Transform nearestTarget = FindNearestTarget(player);
 
-        if (nearestTarget != null)
+        if (nearestTarget == null) return;
+
+        //         
+        float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
+        
+        Debug.Log("Distance to nearest target: " + distance);
+
+
+
+        if (Input.GetMouseButtonDown(0)) // Left click
         {
-            if (Input.GetMouseButtonDown(0)) // Left click
+            if (distance <= detectionRadius)
             {
+                Debug.Log("Target is within radius!");
                 RotateTowardsTarget(player, nearestTarget, rotationSpeed);
                 FireAtPoint(nearestTarget.transform.position);
 
             }
+            else
+            {
+                Debug.Log("Target is not");
+            }
+
         }
+
+
+
     }
 
 }

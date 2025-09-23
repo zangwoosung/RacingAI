@@ -205,7 +205,7 @@ public class MainUI : MonoBehaviour
         if (pick.text == ticket.Name) //ticket.Name)
         {
             label.text = "You won!";
-            //SessionClearEvent?.Invoke(index.ToString());
+          
            
 
         }
