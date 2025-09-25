@@ -20,6 +20,7 @@ public class CircleFollower : MonoBehaviour
         {
             case IdleState:
                 line.material.color = Color.green;
+
                 break;
             case AlertState:
                 line.material.color = Color.yellow;
