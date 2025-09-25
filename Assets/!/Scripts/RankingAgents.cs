@@ -24,6 +24,31 @@ public class RankingAgents : MonoBehaviour
     VisualElement root;
 
     MultiColumnListView listView;
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            List<MyData> testData = new List<MyData>
+            {
+                new MyData("Agent A", "12:34", null),
+                new MyData("Agent B", "23:45", null),
+                new MyData("Agent C", "34:56", null),
+                new MyData("Agent D", "45:67", null),
+                new MyData("Agent E", "56:78", null),
+                new MyData("Agent F", "67:89", null),
+                new MyData("Agent G", "78:90", null),
+                new MyData("Agent H", "89:01", null),
+                new MyData("Agent I", "90:12", null),
+                new MyData("Agent J", "01:23", null)
+            };
+
+
+            ShowRanking(testData);  
+        }   
+
+
+    }
     private void Start()
     {
         // hook  and DataBinding.....MyData  이것을 이해하면 "데이터 바인딩" 끝. 
@@ -59,6 +84,12 @@ public class RankingAgents : MonoBehaviour
         listView.RefreshItems();
 
         Debug.Log("myDataList.count " + myDataList.Count);
+        int columnCount = listView.columns.Count;
+
+        if (columnCount > 0)
+        {
+            listView.columns.Clear();
+        }
 
         // Column 1: Title
         listView.columns.Add(new Column
