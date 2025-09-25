@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 public class EffectManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class EffectManager : MonoBehaviour
     void Start()
     {
         Bullet.OnHitContactEvent += OnHitContactEvent;
+        DeadState.OnAgentDeath += PlayEndPS;
     }
 
     
@@ -25,7 +27,15 @@ public class EffectManager : MonoBehaviour
 
         Destroy(psInstance, ps.main.duration + ps.main.startLifetime.constant);
     }
+    public void PlayEndPS(Vector3 pos)
+    {
+        Debug.Log("EffectManager OnHitContactEvent " + pos);
+        GameObject psInstance = Instantiate(firefab, pos, Quaternion.identity);
+        ParticleSystem ps = psInstance.GetComponent<ParticleSystem>();
+        ps.Play();
 
+        Destroy(psInstance, ps.main.duration + ps.main.startLifetime.constant);
+    }
     public void OnHitDistanceEvent(Transform obj, float degree)
     {
 
