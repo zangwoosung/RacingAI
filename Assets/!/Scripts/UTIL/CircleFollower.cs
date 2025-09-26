@@ -7,7 +7,7 @@ public class CircleFollower : MonoBehaviour
     public int segments = 36;
     private LineRenderer line;
 
-    void Start()
+    void Awake()
     {
         line = GetComponent<LineRenderer>();
         line.positionCount = segments + 1;
@@ -20,11 +20,12 @@ public class CircleFollower : MonoBehaviour
         {
             case IdleState:
                 line.material.color = Color.green;
-
                 break;
+
             case AlertState:
                 line.material.color = Color.yellow;
                 break;
+
             case DeadState:
                 line.material.color = Color.gray;
                 break;
@@ -32,6 +33,7 @@ public class CircleFollower : MonoBehaviour
             case AttackState:
                 line.material.color = Color.red;
                 break;
+
             default:
                 line.material.color = Color.white;
                 break;

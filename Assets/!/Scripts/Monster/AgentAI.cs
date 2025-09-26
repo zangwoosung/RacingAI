@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AgentAI : MonoBehaviour
@@ -6,12 +7,13 @@ public class AgentAI : MonoBehaviour
     [SerializeField] private CircleFollower circleFollower;
 
     public GameObject bulletPrefab;
+    public GameObject simpleBulletPrefab;
     public Transform firePoint;
     public Transform fireTarget;
     public float bulletSpeed = 20f;
     public Transform player;
     public float rotationSpeed = 5f;
-    int ammo = 3;  
+    int ammo = 3;
     void Start()
     {
         ChangeState(new IdleState());
@@ -43,56 +45,28 @@ public class AgentAI : MonoBehaviour
     }
     public void FireAtPoint(Vector3 targetPoint)
     {
+        ammo--;
+        Debug.Log("Firing at point: " + targetPoint);
         Vector3 direction = (targetPoint - firePoint.position).normalized;
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+        GameObject bullet = Instantiate(simpleBulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = direction * bulletSpeed;
-      
+
         Destroy(bullet, 1f);
     }
-    public float detectionRadius = 50f;
-    bool isBlocked = false;    
+    public float detectionRadius = 5f;
+    bool isBlocked = false;
+    Transform nearestTarget;
     void Update()
     {
-        if (isBlocked) return;
-
-        if (ammo <= 0)
-        {
-            ChangeState(new DeadState());
-         isBlocked = true;
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ammo--;
-
-            return;
-        }
 
 
-        Transform nearestTarget = FindNearestTarget(player);
+        nearestTarget = FindNearestTarget(player);
 
         if (nearestTarget == null) return;
 
         float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
-        Debug.Log("Distance to nearest target: " + distance);
-
-
-        if (distance <= detectionRadius)
-        {
-            Debug.Log("Target is within radius!");
-            RotateTowardsTarget(player, nearestTarget, rotationSpeed);
-            FireAtPoint(nearestTarget.transform.position);
-            ChangeState(new AlertState());
-        }
-        else
-        {
-            Debug.Log("Target is not");
-        }
-
-       
-
 
         if (distance > detectionRadius)
         {
@@ -104,20 +78,38 @@ public class AgentAI : MonoBehaviour
             ChangeState(new AlertState());
             return;
         }
-     
-        
-
+        if (distance <= 3)
+        {
+            ChangeState(new AttackState());
+            return;
+        }
     }
 
     public void ChangeState(IAgentAIState newState)
     {
+        if (currentState != null && newState != null)
+        {
+            if (currentState.GetType() == newState.GetType())
+            {                
+                return;
+            }
+         }
+
         currentState?.Exit(this);
         currentState = newState;
         currentState?.Enter(this);
+        currentState?.Execute(this);
+
         circleFollower.ChangeColor(newState);
     }
 
-    // Example helper methods
+    public void LookAtPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+
     public bool IsPlayerNearby()
     {
         return false;
@@ -129,11 +121,20 @@ public class AgentAI : MonoBehaviour
         return false;
 
     }
-    public bool IsDead() { return false; }
+    public bool IsDead()
+    {
+        return  (ammo > 0) ?  true:  false;    
+
+    }
 
     public void PerformAttack()
     {
-
+        FireAtPoint(nearestTarget.transform.position);
     }
     public void DestroySelf() => Destroy(gameObject);
+
+    public void LootAtTarget()
+    {
+        RotateTowardsTarget(player, nearestTarget, rotationSpeed);
+    }
 }
