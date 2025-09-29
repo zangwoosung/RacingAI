@@ -2,15 +2,22 @@ using System;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Engagement : MonoBehaviour
+// 에이전트가 다른 에이전트의 속도를 감속. 
+public class Engagement : MonoBehaviour 
 {
+   
 
     public GameObject bulletPrefab;
+
+    public Transform player;
+    
     public Transform firePoint;
     public Transform fireTarget;
+   
     public float bulletSpeed = 20f;
-    public Transform player;
     public float rotationSpeed = 5f;
+
+
 
     void Start()
     {
@@ -54,18 +61,24 @@ public class Engagement : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = direction * bulletSpeed;
-        //OnFireAtPoint.Invoke();
+      
         Destroy(bullet, 1f);
     }
+    
     public float detectionRadius = 50f;
+
     void Update()
     {
         Transform nearestTarget = FindNearestTarget(player);
 
         if (nearestTarget == null) return;
 
+        //         
         float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
+        
         Debug.Log("Distance to nearest target: " + distance);
+
+
 
         if (Input.GetMouseButtonDown(0)) // Left click
         {

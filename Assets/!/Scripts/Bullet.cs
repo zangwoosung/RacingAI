@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
 
         try
         {
+
             collision.gameObject.GetComponent<TargetWobble>().TriggerWobble();
 
         }
