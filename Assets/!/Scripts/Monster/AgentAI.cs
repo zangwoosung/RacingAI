@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class AgentAI : MonoBehaviour
 {
+    public static event Action<Vector3> OnFireEvent;
     private IAgentAIState currentState;
     [SerializeField] private CircleFollower circleFollower;
+    [SerializeField] AnimationController animController;
 
     public GameObject bulletPrefab;
     public GameObject simpleBulletPrefab;
@@ -14,6 +17,9 @@ public class AgentAI : MonoBehaviour
     public Transform player;
     public float rotationSpeed = 5f;
     int ammo = 3;
+    public float detectionRadius = 10f;
+    bool isBlocked = false;
+    Transform nearestTarget;
     void Start()
     {
         ChangeState(new IdleState());
@@ -43,6 +49,31 @@ public class AgentAI : MonoBehaviour
 
         return nearestTarget;
     }
+
+    public void   OpenFire()
+    {
+       StartCoroutine(OpenFireCoroutine()); 
+    }
+    public void CeaseFire()
+    {
+       StopAllCoroutines();
+    }
+    IEnumerator OpenFireCoroutine()
+    {
+        ammo = 20;
+
+        while (ammo > 0)
+        {
+            Vector3 direction = (nearestTarget.position - firePoint.position).normalized;
+            OnFireEvent?.Invoke(firePoint.position);
+            GameObject bullet = Instantiate(simpleBulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.linearVelocity = direction * bulletSpeed;
+            yield return new WaitForSeconds(0.5f);
+            Destroy(bullet, 1f);
+            ammo--;
+        }
+    }
     public void FireAtPoint(Vector3 targetPoint)
     {
         ammo--;
@@ -55,9 +86,7 @@ public class AgentAI : MonoBehaviour
 
         Destroy(bullet, 1f);
     }
-    public float detectionRadius = 5f;
-    bool isBlocked = false;
-    Transform nearestTarget;
+   
     void Update()
     {
 
@@ -66,6 +95,8 @@ public class AgentAI : MonoBehaviour
 
         if (nearestTarget == null) return;
 
+        LookAtPlayer();
+
         float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
 
         if (distance > detectionRadius)
@@ -73,12 +104,12 @@ public class AgentAI : MonoBehaviour
             ChangeState(new IdleState());
             return;
         }
-        if (distance <= detectionRadius && distance > 3)
+        if (distance <= detectionRadius && distance > 5)
         {
             ChangeState(new AlertState());
             return;
         }
-        if (distance <= 3)
+        if (distance <= 5)
         {
             ChangeState(new AttackState());
             return;
@@ -90,22 +121,24 @@ public class AgentAI : MonoBehaviour
         if (currentState != null && newState != null)
         {
             if (currentState.GetType() == newState.GetType())
-            {                
+            {
                 return;
             }
-         }
-
+        }
+        Debug.Log("Changing state to: " + newState?.GetType().Name);
         currentState?.Exit(this);
         currentState = newState;
         currentState?.Enter(this);
         currentState?.Execute(this);
 
         circleFollower.ChangeColor(newState);
+        animController.PlayAnimation(newState);
+
     }
 
     public void LookAtPlayer()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (nearestTarget.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
@@ -123,7 +156,7 @@ public class AgentAI : MonoBehaviour
     }
     public bool IsDead()
     {
-        return  (ammo > 0) ?  true:  false;    
+        return (ammo > 0) ? true : false;
 
     }
 

@@ -14,9 +14,10 @@ public class EffectManager : MonoBehaviour
     {
         Bullet.OnHitContactEvent += OnHitContactEvent;
         DeadState.OnAgentDeath += PlayEndPS;
+        AgentAI.OnFireEvent += OnHitContactEvent;
     }
 
-    
+  
 
     public  void OnHitContactEvent(Vector3 pos)
     {

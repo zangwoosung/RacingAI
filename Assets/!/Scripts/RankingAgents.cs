@@ -54,6 +54,12 @@ public class RankingAgents : MonoBehaviour
     {
         rootVisualElement = _UIDocument.rootVisualElement;
         listView = rootVisualElement.Q<MultiColumnListView>();
+        var closebtn = rootVisualElement.Q<Button>("CloseBtn"); 
+
+        closebtn.clicked += () =>
+        {
+            rootVisualElement.visible = false;
+        };  
     }
     public void ShowRanking(List<MyData> data)
     {

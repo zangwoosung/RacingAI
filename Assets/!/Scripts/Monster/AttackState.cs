@@ -4,19 +4,23 @@ public class AttackState : IAgentAIState
 {
 
     public void Enter(AgentAI agent)
-    { 
-          agent.LootAtTarget();
+    {
+        agent.LootAtTarget();
 
     }
     public void Execute(AgentAI agent)
     {
-        agent.LookAtPlayer();
-        agent.FireAtPoint(agent.player.position);       
-        //agent.PerformAttack();
-        if (agent.IsDead())
-            agent.ChangeState(new DeadState());
+        agent.OpenFire();
+
+        //if (agent.IsDead())
+        //    agent.ChangeState(new DeadState());
     }
 
-    
-    public void Exit(AgentAI agent) => Debug.Log("Exiting Attack State");
+
+    public void Exit(AgentAI agent)
+    {
+        agent.CeaseFire();
+        Debug.Log("Exiting Attack State");
+
+    }
 }
