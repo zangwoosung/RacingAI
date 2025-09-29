@@ -50,17 +50,17 @@ public class AgentAI : MonoBehaviour
         return nearestTarget;
     }
 
-    public void   OpenFire()
+    public void OpenFire()
     {
-       StartCoroutine(OpenFireCoroutine()); 
+        StartCoroutine(OpenFireCoroutine());
     }
     public void CeaseFire()
     {
-       StopAllCoroutines();
+        StopAllCoroutines();
     }
     IEnumerator OpenFireCoroutine()
     {
-        ammo = 20;
+        ammo = 10;
 
         while (ammo > 0)
         {
@@ -73,6 +73,8 @@ public class AgentAI : MonoBehaviour
             Destroy(bullet, 1f);
             ammo--;
         }
+
+        ChangeState(new DeadState());
     }
     public void FireAtPoint(Vector3 targetPoint)
     {
@@ -86,9 +88,18 @@ public class AgentAI : MonoBehaviour
 
         Destroy(bullet, 1f);
     }
-   
+
+    bool isDead = false;
     void Update()
     {
+        Debug.Log("Current State: " + currentState.GetType().Name);
+        if( Input.GetKeyDown(KeyCode.K))
+        {
+            ammo = 10;
+            ChangeState(new IdleState());
+        }
+        if (currentState.GetType().Name == "DeadState") return;
+
 
 
         nearestTarget = FindNearestTarget(player);
@@ -164,7 +175,11 @@ public class AgentAI : MonoBehaviour
     {
         FireAtPoint(nearestTarget.transform.position);
     }
-    public void DestroySelf() => Destroy(gameObject);
+    public void DestroySelf()
+    {
+        //Destroy(gameObject);
+
+    }
 
     public void LootAtTarget()
     {
