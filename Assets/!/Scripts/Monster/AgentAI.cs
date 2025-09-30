@@ -92,39 +92,39 @@ public class AgentAI : MonoBehaviour
     bool isDead = false;
     void Update()
     {
-        Debug.Log("Current State: " + currentState.GetType().Name);
-        if( Input.GetKeyDown(KeyCode.K))
-        {
-            ammo = 10;
-            ChangeState(new IdleState());
-        }
-        if (currentState.GetType().Name == "DeadState") return;
+        //Debug.Log("Current State: " + currentState.GetType().Name);
+        //if( Input.GetKeyDown(KeyCode.K))
+        //{
+        //    ammo = 10;
+        //    ChangeState(new IdleState());
+        //}
+        //if (currentState.GetType().Name == "DeadState") return;
 
 
 
-        nearestTarget = FindNearestTarget(player);
+        //nearestTarget = FindNearestTarget(player);
 
-        if (nearestTarget == null) return;
+        //if (nearestTarget == null) return;
 
-        LookAtPlayer();
+        //LookAtPlayer();
 
-        float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
+        //float distance = Vector3.Distance(transform.position, nearestTarget.transform.position);
 
-        if (distance > detectionRadius)
-        {
-            ChangeState(new IdleState());
-            return;
-        }
-        if (distance <= detectionRadius && distance > 5)
-        {
-            ChangeState(new AlertState());
-            return;
-        }
-        if (distance <= 5)
-        {
-            ChangeState(new AttackState());
-            return;
-        }
+        //if (distance > detectionRadius)
+        //{
+        //    ChangeState(new IdleState());
+        //    return;
+        //}
+        //if (distance <= detectionRadius && distance > 5)
+        //{
+        //    ChangeState(new AlertState());
+        //    return;
+        //}
+        //if (distance <= 5)
+        //{
+        //    ChangeState(new AttackState());
+        //    return;
+        //}
     }
 
     public void ChangeState(IAgentAIState newState)

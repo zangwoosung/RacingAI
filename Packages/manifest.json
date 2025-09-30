@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.gitamend.unityutils": "https://github.com/adammyhre/Unity-Utils.git",
     "com.lootlocker.lootlockersdk": "https://github.com/LootLocker/unity-sdk.git",
     "com.unity.2d.enhancers": "1.0.0",
