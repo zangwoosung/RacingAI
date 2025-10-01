@@ -9,7 +9,7 @@ public class RobotManager : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Initialize()
     {
         for (int i = 0; i < robotPrefabs.Length; i++)
         {

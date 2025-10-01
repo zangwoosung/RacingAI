@@ -11,14 +11,19 @@ public class GameManager : MonoBehaviour
     public AgentManager agentManager;
     [SerializeField] Transform destination;
 
-
-    void Start()
-    {
-        mainCamera.enabled = true;
        
-    }
+    public void Initialize()
+    {
+        Debug.Log("GameManager Initialized");   
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera.enabled = true;
+        MainUI.SessionBeginEvent += StartSession;
+        destination = GameObject.Find("Destination").transform;
 
-    public void StartGame()
+       
+
+    }
+    public void StartSession()
     {
         agentManager.StartToRun(destination.position);
     }

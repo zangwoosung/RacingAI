@@ -22,34 +22,11 @@ public class MyData
 public class RankingAgents : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
+    [SerializeField] MainUI  _mainUI;
     VisualElement rootVisualElement;
-
     MultiColumnListView listView;
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            List<MyData> testData = new List<MyData>
-            {
-                new MyData("Agent A", "12:34", null),
-                new MyData("Agent B", "23:45", null),
-                new MyData("Agent C", "34:56", null),
-                new MyData("Agent D", "45:67", null),
-                new MyData("Agent E", "56:78", null),
-                new MyData("Agent F", "67:89", null),
-                new MyData("Agent G", "78:90", null),
-                new MyData("Agent H", "89:01", null),
-                new MyData("Agent I", "90:12", null),
-                new MyData("Agent J", "01:23", null)
-            };
-
-
-            ShowRanking(testData);  
-        }   
-
-
-    }
+  
     private void Start()
     {
         rootVisualElement = _UIDocument.rootVisualElement;
@@ -59,12 +36,18 @@ public class RankingAgents : MonoBehaviour
         closebtn.clicked += () =>
         {
             rootVisualElement.visible = false;
-        };  
+            _mainUI.ShowMainUI();
+        };
+
+        AgentManager.OnSessionEndWithRankingEvent += ShowRanking;
     }
+
+   
+
     public void ShowRanking(List<MyData> data)
     {
         List<MyData> myDataList = data;
-
+        rootVisualElement.visible = true;
         Debug.Log("myDataList.count " + myDataList.Count);
         int columnCount = listView.columns.Count;
 

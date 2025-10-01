@@ -15,37 +15,36 @@ public class MainUI : MonoBehaviour
     [Header("Ranking")]
     [SerializeField] UIDocument _rankingUI;
     [SerializeField] RankingAgents _rankingAgents;
+    [SerializeField] public static event Action SessionBeginEvent;
+     
 
-    [SerializeField] UnityEvent startEvent;
-    [SerializeField] AgentManager agentManager;
     public MyPick myPickSO;
     public static event Action<string> SessionClearEvent;
     public Sprite spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG;
-
     VisualElement root, rankingRoot, Main, myPick, AIPick, PopupWin, PopupLose, sample;
+    AgentManager agentManager;
     Button btn01, btn02, btn03, btn04, btn05, btn06, btn07, resetBtn, startBtn;
     List<Button> listButton;
     Sprite sprite;
     Texture2D texture;
     Dictionary<string, Sprite> SpriteDict = new Dictionary<string, Sprite>();
-   public  List<MyData> myDataList;
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            ShowRaning(myDataList);
-        }
-    }   
+    public List<MyData> myDataList;
+
 
     public void Setup(List<MyData> obj)
     {
         myDataList = obj;
     }
-    public void ShowRaning(List<MyData> obj )
+    public void ShowRaning(List<MyData> obj)
     {
         root.visible = false; ;
         rankingRoot.visible = true;
-        _rankingAgents.ShowRanking(obj);   
+        _rankingAgents.ShowRanking(obj);
+    }
+
+    public void Initialize()
+    {
+        agentManager = UnityEngine.Object.FindFirstObjectByType<AgentManager>();
     }
     void Start()
     {
@@ -98,10 +97,10 @@ public class MainUI : MonoBehaviour
         btn05.style.backgroundImage = new StyleBackground(spriteE.texture);
         btn06.style.backgroundImage = new StyleBackground(spriteF.texture);
         btn07.style.backgroundImage = new StyleBackground(spriteG.texture);
-        
+
         SpriteDict.Add("bear", spriteA);
-        SpriteDict.Add("cat",  spriteB);
-        SpriteDict.Add("dog",  spriteC);
+        SpriteDict.Add("cat", spriteB);
+        SpriteDict.Add("dog", spriteC);
         SpriteDict.Add("eagle", spriteD);
         SpriteDict.Add("puma", spriteE);
         SpriteDict.Add("shark", spriteF);
@@ -118,12 +117,11 @@ public class MainUI : MonoBehaviour
 
         startBtn.clicked += () =>
         {
-
-            startEvent.Invoke();
-
+            SessionBeginEvent?.Invoke();            
             root.AddToClassList("down");
 
         };
+
         resetBtn.clicked += () => ResetPicks();
         listButton = new List<Button>();
         listButton.Add(btn01);
@@ -161,53 +159,40 @@ public class MainUI : MonoBehaviour
     private void SwapBackgroundswith(Button btn)
     {
         StopAllCoroutines();
-        AIPick.style.backgroundImage = null; 
+        AIPick.style.backgroundImage = null;
 
         myPick.style.backgroundImage = btn.style.backgroundImage;
         Label label = myPick.Q<Label>();
         SpriteRenderer spriteRenderer = new SpriteRenderer();
-       
+
         var obj = btn.style.backgroundImage.value.texture;
-
         label.text = obj.name;
-
         myPickSO.pick = obj.name;
         myPickSO.pickTexture = obj;
 
-
         StartCoroutine(RansdomPickByAI());
-    }       
-      
-   
+    }
+
+
     public void TicketAndSprite(Ticket ticket, SpriteRenderer sr)
-    {      
-
+    {
         root.RemoveFromClassList("down");
-
         PopupLose.visible = false;
         PopupWin.visible = true;
 
         this.texture = SpriteDict[ticket.Name].texture;
-        
         Label pick = myPick.Q<Label>();
         var photo = PopupWin.Q<VisualElement>("photo");
         photo.style.backgroundImage = new StyleBackground(texture);
 
-        Debug.Log($"{pick.text}  ***  ticket name {ticket.Name}  sprite name  {this.texture.name}");
+       
 
         var label = PopupWin.Q<Label>();
 
         int index = 0;
-
-
-
-
         if (pick.text == ticket.Name) //ticket.Name)
         {
             label.text = "You won!";
-          
-           
-
         }
         else
         {
@@ -215,11 +200,10 @@ public class MainUI : MonoBehaviour
         }
 
         SessionClearEvent?.Invoke(index.ToString());
-
         PopupWin.RemoveFromClassList("dot");
 
     }
-  
+
 
     IEnumerator RansdomPickByAI()
     {
@@ -230,7 +214,7 @@ public class MainUI : MonoBehaviour
         resetBtn.SetEnabled(true);
         startBtn.SetEnabled(true);
 
-    }   
+    }
 
     public void ShowMainUI()
     {

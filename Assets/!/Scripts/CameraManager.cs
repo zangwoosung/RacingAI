@@ -7,12 +7,21 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+        //// Ensure only the first camera is active at start
+        //for (int i = 0; i < cameras.Length; i++)
+        //{
+        //    cameras[i].gameObject.SetActive(i == currentIndex);
+        //}
+    }
+    public void Initialize(Camera[] _cameras )
+    {
+        this.cameras = _cameras;
         // Ensure only the first camera is active at start
         for (int i = 0; i < cameras.Length; i++)
         {
             cameras[i].gameObject.SetActive(i == currentIndex);
         }
-    }
+    }   
 
     public void SwitchCamera()
     {
