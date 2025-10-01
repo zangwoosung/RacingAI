@@ -1,10 +1,14 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public Camera[] cameras; // Assign your cameras in the Inspector
-    private int currentIndex = 0;
+    Camera[] cameras; // Assign your cameras in the Inspector
+    int currentIndex = 0;
 
+    List<Camera> cameraList = new List<Camera>();   
     void Start()
     {
         //// Ensure only the first camera is active at start
@@ -13,26 +17,31 @@ public class CameraManager : MonoBehaviour
         //    cameras[i].gameObject.SetActive(i == currentIndex);
         //}
     }
-    public void Initialize(Camera[] _cameras )
+    public void Initialize( )
     {
-        this.cameras = _cameras;
-        // Ensure only the first camera is active at start
-        for (int i = 0; i < cameras.Length; i++)
+        //find world first
+        
+        GameObject world = GameObject.FindWithTag("World");
+
+       
+        cameraList = world.GetComponentsInChildren<Camera>().ToList();
+        
+        for (int i = 0; i < cameraList.Count; i++)
         {
-            cameras[i].gameObject.SetActive(i == currentIndex);
+            cameraList[i].gameObject.SetActive(i == currentIndex);
         }
     }   
 
-    public void SwitchCamera()
+     void SwitchCamera()
     {
-       
-        cameras[currentIndex].gameObject.SetActive(false);
+
+        cameraList[currentIndex].gameObject.SetActive(false);
 
     
-        currentIndex = (currentIndex + 1) % cameras.Length;
+        currentIndex = (currentIndex + 1) % cameraList.Count;
 
-       
-        cameras[currentIndex].gameObject.SetActive(true);
+
+        cameraList[currentIndex].gameObject.SetActive(true);
     }
     void Update()
     {

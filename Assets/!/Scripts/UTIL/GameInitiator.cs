@@ -38,7 +38,7 @@ public class GameInitiator : MonoBehaviour
 
     async UniTask BeginGame()
     {
-        await Task.Delay(1000);
+        await Task.Delay(10);
 
         //_HPCharacter.GetComponent<Animator>().enabled = true;
         //_PBRCharacter.GetComponent<Animator>().enabled = true;
@@ -56,15 +56,15 @@ public class GameInitiator : MonoBehaviour
     }
 
     async UniTask InitializeObjects() 
-    {
-        Debug.Log("InitializeObjects start");
+    {     
         
         _gameManager.Initialize();
         _ui.GetComponent<MainUI>().Initialize();
-        _agentManager.Initialize();        
-        await Task.Delay(1000);
-        Debug.Log("InitializeObjects end");
-      //  await UniTask.Delay(10);
+        _agentManager.Initialize();
+        FindFirstObjectByType<CameraManager>().Initialize();
+        
+        await Task.Delay(10);
+       
     }
     async UniTask CreateObjects()
     {
@@ -79,15 +79,12 @@ public class GameInitiator : MonoBehaviour
         _setting = Instantiate(_setting);
         _world = Instantiate(_world);
         _ui = Instantiate(_ui);
-       _scripts = Instantiate(_scripts);
-        
-        //_gameManager = UnityEngine.Object.FindFirstObjectByType<GameManager>(); 
-        _gameManager = _scripts.GetComponentInChildren<GameManager>(); 
-
-        Debug.Log("#########" + _gameManager.name);
+       _scripts = Instantiate(_scripts);       
+       
+        _gameManager = _scripts.GetComponentInChildren<GameManager>();       
 
         _agentManager = UnityEngine.Object.FindFirstObjectByType<AgentManager>();
-        Debug.Log("#########" + _agentManager.name);
+      
         //_agentManager = _scripts.GetComponentInChildren<AgentManager>();
 
     }
