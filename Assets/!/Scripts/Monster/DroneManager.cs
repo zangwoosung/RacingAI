@@ -1,11 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DroneManager : MonoBehaviour
 {
 
     public GameObject dronePrefab;
+    public GameObject motherPrefab;
 
-    private void Start()
+    Orbit orbit;
+    public void Init()
+    {
+        
+    }
+    public void CreateObject()
     {
         Drone drone = new Drone.Builder()
             .WithName("Scout Drone")
@@ -16,10 +23,32 @@ public class DroneManager : MonoBehaviour
             .WithAttackRange(15f)
             .WithAttackCooldown(5f)
             .Build();
-        Debug.Log($"Created Drone: {drone.Name}, Health: {drone.Health}, Speed: {drone.Speed}, Damage: {drone.Damage}, Detection Range: {drone.DetectionRange}, Attack Range: {drone.AttackRange}, Attack Cooldown: {drone.AttackCooldown}");
-       
-        GameObject clone = Instantiate(dronePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        clone.transform.SetParent(drone.transform);
+        
+              
+        
+        GameObject cloneMother = Instantiate(motherPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject cloneChild = Instantiate(dronePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        
+        cloneChild.AddComponent<Orbit>().SetTarget(cloneMother.transform);
+        orbit = cloneChild.GetComponent<Orbit>();
+        //orbit.ChangeState(new IdleState());
+        cloneChild.transform.SetParent(cloneMother.transform);
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            CreateObject();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            orbit.ChangeState(new AttackState());
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            orbit.ChangeState(new AlertState());
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Drone : MonoBehaviour
@@ -12,7 +13,23 @@ public class Drone : MonoBehaviour
     public float AttackCooldown { get; private set; }
 
 
+    public void init()
+    {
+        StartCoroutine(FindAgents());
+    }
+    IEnumerator FindAgents()
+    {
+        // Wait for one frame (optional, depending on your timing needs)
+        yield return null;
 
+        GameObject[] agents = GameObject.FindGameObjectsWithTag("Agent");
+
+        foreach (GameObject agent in agents)
+        {
+            Debug.Log("Found Agent: " + agent.name);
+            
+        }
+    }
 
     public class Builder
     {
@@ -24,7 +41,8 @@ public class Drone : MonoBehaviour
         float attackRange = 10;
         float attackCooldown = 10;
 
-        
+       
+
         public Builder WithName(string name)
         {
             this.name = name;
