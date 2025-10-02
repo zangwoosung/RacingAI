@@ -23,19 +23,40 @@ public class RankingAgents : MonoBehaviour
 {
     [SerializeField] UIDocument _UIDocument;
     [SerializeField] MainUI  _mainUI;
-    VisualElement rootVisualElement;
+    VisualElement root;
     MultiColumnListView listView;
+    [SerializeField] Sprite sp;
 
-  
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            List<MyData> mydataList = new List<MyData>();
+
+            for (int i = 0; i < 5; i++)
+            {
+               
+                    string name = $"Item {i + 1}";
+                    string time = System.DateTime.Now.AddMinutes(i * 5).ToString("HH:mm");
+                Sprite icon = sp; // Use the assigned sprite
+
+                    MyData myData = new MyData(name, time, icon);
+                    mydataList.Add(myData);
+                
+            }
+            ShowRanking(mydataList);
+        }
+    }
+
     private void Start()
     {
-        rootVisualElement = _UIDocument.rootVisualElement;
-        listView = rootVisualElement.Q<MultiColumnListView>();
-        var closebtn = rootVisualElement.Q<Button>("CloseBtn"); 
+        root = _UIDocument.rootVisualElement;
+        listView = root.Q<MultiColumnListView>();
+        var closebtn = root.Q<Button>();
 
         closebtn.clicked += () =>
         {
-            rootVisualElement.visible = false;
+            root.visible = false;
             _mainUI.ShowMainUI();
         };
 
@@ -47,7 +68,7 @@ public class RankingAgents : MonoBehaviour
     public void ShowRanking(List<MyData> data)
     {
         List<MyData> myDataList = data;
-        rootVisualElement.visible = true;
+        root.visible = true;
         Debug.Log("myDataList.count " + myDataList.Count);
         int columnCount = listView.columns.Count;
 
@@ -55,14 +76,23 @@ public class RankingAgents : MonoBehaviour
         {
             listView.columns.Clear();
         }
-
+        float totalWidth = listView.resolvedStyle.width;
+        float columnWidth = totalWidth / 3f;
         // Column 1: Title
         listView.columns.Add(new Column
         {
             name = "title",
             title = "Title",
-            width = 150,
-            makeCell = () => new Label(),
+            width = totalWidth * 0.3f,
+            makeCell = () =>
+            {
+                var label = new Label();
+                label.style.height = new Length(100, LengthUnit.Percent);
+                label.style.display = DisplayStyle.Flex;
+                label.style.alignItems = Align.Center;       // Vertical centering
+                label.style.justifyContent = Justify.Center; // Optional: horizontal centering
+                return label;
+            },
             bindCell = (element, index) =>
             {
                 (element as Label).text = myDataList[index].Name;
@@ -74,8 +104,16 @@ public class RankingAgents : MonoBehaviour
         {
             name = "description",
             title = "Description",
-            width = 250,
-            makeCell = () => new Label(),
+            width = totalWidth * 0.3f,
+            makeCell = () =>
+            {
+                var label = new Label();
+                label.style.height = new Length(100, LengthUnit.Percent);
+                label.style.display = DisplayStyle.Flex;
+                label.style.alignItems = Align.Center;       // Vertical centering
+                label.style.justifyContent = Justify.Center; // Optional: horizontal centering
+                return label;
+            },
             bindCell = (element, index) =>
             {
                 (element as Label).text = myDataList[index].Time;
@@ -87,7 +125,8 @@ public class RankingAgents : MonoBehaviour
         {
             name = "icon",
             title = "Icon",
-            width = 60,
+            width = totalWidth * 0.4f,
+            
             makeCell = () => new Image { scaleMode = ScaleMode.ScaleToFit },
             bindCell = (element, index) =>
             {
@@ -95,8 +134,8 @@ public class RankingAgents : MonoBehaviour
                 img.image = myDataList[index].Icon?.texture;
             }
         });
-
-        listView.itemsSource = myDataList;      
-
+        listView.Rebuild();
+        listView.itemsSource = myDataList;
+        listView.fixedItemHeight = 40;
     }    
 }

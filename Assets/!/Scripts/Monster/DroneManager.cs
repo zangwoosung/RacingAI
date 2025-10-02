@@ -30,8 +30,7 @@ public class DroneManager : MonoBehaviour
         GameObject cloneChild = Instantiate(dronePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         
         cloneChild.AddComponent<Orbit>().SetTarget(cloneMother.transform);
-        orbit = cloneChild.GetComponent<Orbit>();
-        //orbit.ChangeState(new IdleState());
+        orbit = cloneChild.GetComponent<Orbit>();      
         cloneChild.transform.SetParent(cloneMother.transform);
     }
 
