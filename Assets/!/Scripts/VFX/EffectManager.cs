@@ -15,6 +15,7 @@ public class EffectManager : MonoBehaviour
         Bullet.OnHitContactEvent += OnHitContactEvent;
         DeadState.OnAgentDeath += PlayEndPS;
         AgentAI.OnFireEvent += OnHitContactEvent;
+        Drone.OnFireEvent += OnHitContactEvent; 
     }
 
   

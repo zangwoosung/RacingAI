@@ -1,3 +1,4 @@
+using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class DroneManager : MonoBehaviour
 
     public GameObject dronePrefab;
     public GameObject motherPrefab;
+    public SplineNode SplineNode;
 
     Orbit orbit;
     public void Init()

@@ -7,15 +7,15 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Bullet OnCollisionEnter " + collision.gameObject.name);
-
-        collision.gameObject.GetComponent<Agent>().Speed--;
-
-        OnHitContactEvent.Invoke(collision.gameObject.transform.position);
+       
 
         try
         {
+            Debug.Log("Bullet OnCollisionEnter " + collision.gameObject.name);
 
+            collision.gameObject.GetComponent<Agent>().Speed--;
+
+            OnHitContactEvent.Invoke(collision.gameObject.transform.position);
             collision.gameObject.GetComponent<TargetWobble>().TriggerWobble();
 
         }
