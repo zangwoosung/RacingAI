@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Drone : MonoBehaviour
@@ -17,9 +18,48 @@ public class Drone : MonoBehaviour
     public float AttackCooldown { get; private set; }
     GameObject player = null;
 
+    private async void Start()
+    {
+        await FindAgentsAsync();
+    }
+
+    private async Task FindAgentsAsync()
+    {
+        Debug.Log("start to find Agent");
+        player = null;
+
+        player = GameObject.FindWithTag("Agent");
+
+        while (player != null)
+        {
+            await Task.Yield(); // Wait for the next frame
+
+            Vector3 direction = (player.transform.position - firePoint.position).normalized;
+            OnFireEvent?.Invoke(firePoint.position);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.linearVelocity = direction * bulletSpeed;
+
+            player.GetComponent<Agent>().Health--;
+
+            Destroy(bullet, 0.5f);
+        }
+
+
+        await Task.Yield(); // Optional: wait one more frame
+        Debug.Log("Player found: " + player.name);
+    }
+
     void OpenFire()
     {
-        StartCoroutine(OpenFireCoroutine());    
+        // StartCoroutine(OpenFireCoroutine());    
+        Vector3 direction = (player.transform.position - firePoint.position).normalized;
+        OnFireEvent?.Invoke(firePoint.position);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(direction));
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        rb.linearVelocity = direction * bulletSpeed;
+
+        Destroy(bullet, 0.5f);
     }
 
     int ammo = 10;  
@@ -43,10 +83,7 @@ public class Drone : MonoBehaviour
        
     }
 
-    void Start()
-    {
-        StartCoroutine(FindAgents());
-    }   
+  
     public void init()
     {
         StartCoroutine(FindAgents());
@@ -56,7 +93,7 @@ public class Drone : MonoBehaviour
 
         Debug.Log("start to find Agent");
         player = null;
-        // Keep checking until the player is found
+      
         while (player == null)
         {
             player = GameObject.FindWithTag("Agent");

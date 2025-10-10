@@ -34,6 +34,24 @@ public class Agent : MonoBehaviour
     Label body;
     Label foot;
 
+    private int health;
+
+    public int Health
+    {
+        get { return health; }
+        set { health = value;
+        
+            if(health <=0)
+            {
+                Debug.Log("»ç¶óÁü.");
+
+                Destroy(this);
+            }
+        
+        }
+    }
+
+
     private int speed;
 
     public int Speed
@@ -65,6 +83,7 @@ public class Agent : MonoBehaviour
         head.text = spriteRenderer.sprite.name;
 
         Speed = (int)10;
+        Health = 10;
     }
 
     public void Setup(float speed, Vector3 des)
